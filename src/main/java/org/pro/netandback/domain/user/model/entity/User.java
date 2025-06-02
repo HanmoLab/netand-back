@@ -12,7 +12,6 @@ import org.pro.netandback.common.entity.BaseTime;
 import org.pro.netandback.domain.company.model.entity.Company;
 import org.pro.netandback.domain.user.model.type.UserType;
 
-
 @Entity
 @Table(name = "users")
 @Getter
