@@ -12,6 +12,7 @@ public enum ErrorCode {
 	INTERNAL_SERVER_ERROR(500, "C004", "서버 내부 오류가 발생했습니다."),
 	INVALID_TYPE_VALUE(400, "C005", "유효하지 않은 타입 값입니다."),
 	HANDLE_ACCESS_DENIED(403, "C006", "접근이 거부되었습니다."),
+	INVALID_REQUEST        (400, "C007", "유효하지 않은 요청입니다."),
 
 	// JWT
 	EXPIRED_JWT(403, "J001", "만료된 JWT 토큰입니다."),

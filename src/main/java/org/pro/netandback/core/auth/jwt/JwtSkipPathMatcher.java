@@ -9,7 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 @Component
 public class JwtSkipPathMatcher {
 	private static final List<String> SKIP_PREFIXES = List.of(
-		"/api/auth/reissue",
+		"/api/v1/auth/login",
+		"/api/v1/auth/signup",
+		"/api/v1/auth/reissue",
 		"/v3/api-docs",
 		"/swagger-ui",
 		"/swagger-resources",
