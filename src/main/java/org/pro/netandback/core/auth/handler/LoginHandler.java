@@ -5,6 +5,7 @@ import java.time.Duration;
 import org.pro.netandback.common.dto.ResponseDto;
 import org.pro.netandback.core.auth.dto.request.LoginRequest;
 import org.pro.netandback.core.auth.jwt.JwtProvider;
+import org.pro.netandback.core.auth.jwt.UserDetailsImpl;
 import org.pro.netandback.core.error.ErrorCode;
 import org.pro.netandback.core.error.exception.AuthFailedException;
 import org.pro.netandback.domain.user.model.entity.User;
@@ -37,7 +38,8 @@ public class LoginHandler {
 				)
 			);
 
-			User user = (User) authentication.getPrincipal();
+			UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
+			User user = principal.getUser();
 			String accessToken  = jwtProvider.createAccessToken(user.getEmail());
 			String refreshToken = jwtProvider.createRefreshToken(user.getEmail());
 			HttpHeaders headers = new HttpHeaders();
@@ -54,8 +56,7 @@ public class LoginHandler {
 
 			ResponseDto<String> body = ResponseDto.of(
 				HttpStatus.OK,
-				"로그인 성공",
-				accessToken
+				"로그인 성공"
 			);
 
 			return ResponseEntity

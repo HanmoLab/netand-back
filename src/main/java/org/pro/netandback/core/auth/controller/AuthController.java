@@ -34,7 +34,7 @@ public class AuthController {
 	@PostMapping("/signup")
 	public ResponseEntity<ResponseDto<String>> signup(@RequestBody @Validated SignUpRequest request) {
 		User created = authService.signup(request);
-		ResponseDto<String> body = ResponseDto.of(HttpStatus.CREATED, "회원가입 성공", "User ID: " + created.getId());
+		ResponseDto<String> body = ResponseDto.of(HttpStatus.CREATED, "회원가입 성공");
 		return ResponseEntity.status(HttpStatus.CREATED).body(body);
 	}
 }
