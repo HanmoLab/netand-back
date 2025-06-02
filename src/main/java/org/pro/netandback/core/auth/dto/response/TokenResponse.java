@@ -1,4 +1,4 @@
-package org.pro.netandback.core.auth.dto;
+package org.pro.netandback.core.auth.dto.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

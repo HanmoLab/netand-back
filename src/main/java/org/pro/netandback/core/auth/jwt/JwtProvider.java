@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import javax.crypto.SecretKey;
 
-import org.pro.netandback.core.auth.dto.TokenResponse;
+import org.pro.netandback.core.auth.dto.response.TokenResponse;
 import org.pro.netandback.core.error.ErrorCode;
 import org.pro.netandback.core.error.exception.BusinessException;
 import org.pro.netandback.domain.user.model.entity.User;

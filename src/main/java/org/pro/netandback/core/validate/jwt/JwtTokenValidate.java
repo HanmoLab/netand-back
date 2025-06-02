@@ -5,6 +5,7 @@ import org.pro.netandback.core.error.ErrorCode;
 import org.pro.netandback.core.error.exception.JwtAuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,13 +14,13 @@ import jakarta.servlet.http.HttpServletRequest;
 public class JwtTokenValidate {
 	private final JwtProvider jwtProvider;
 
-	@Autowired
-	private RedisTemplate<String, String> redisTemplate;
+	private final StringRedisTemplate stringRedisTemplate;
 
-	public JwtTokenValidate(JwtProvider jwtProvider) {
+
+	public JwtTokenValidate(JwtProvider jwtProvider, StringRedisTemplate stringRedisTemplate) {
 		this.jwtProvider = jwtProvider;
+		this.stringRedisTemplate = stringRedisTemplate;
 	}
-
 	public String resolveAndValidate(HttpServletRequest request) {
 		String token = jwtProvider.resolveAccessToken(request);
 		String blackKey = "blacklist:access:" + token;
@@ -29,7 +30,7 @@ public class JwtTokenValidate {
 		if (!jwtProvider.validateAccessToken(token)) {
 			throw new JwtAuthenticationException(ErrorCode.INVALID_TYPE_VALUE);
 		}
-		if (Boolean.TRUE.equals(redisTemplate.hasKey(blackKey))) {
+		if (Boolean.TRUE.equals(stringRedisTemplate.hasKey(blackKey))) {
 			throw new JwtAuthenticationException(ErrorCode.EXPIRED_JWT);
 		}
 		return token;
