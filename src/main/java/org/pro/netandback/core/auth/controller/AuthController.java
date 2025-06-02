@@ -23,6 +23,7 @@ public class AuthController {
 	private final LoginHandler loginHandler;
 	private final AuthService authService;
 
+	@Operation(summary = "로그인", tags = "인증/인가")
 	@PostMapping("/login")
 	public ResponseEntity<ResponseDto<String>> login(@RequestBody LoginRequest loginRequest) {
 		return loginHandler.login(loginRequest);
@@ -30,7 +31,7 @@ public class AuthController {
 
 
 	//아직 테스트용입니다. 리팩토링 예정
-	@Operation(summary = "회원가입", tags = "Auth")
+	@Operation(summary = "회원가입", tags = "인증/인가")
 	@PostMapping("/signup")
 	public ResponseEntity<ResponseDto<String>> signup(@RequestBody @Validated SignUpRequest request) {
 		User created = authService.signup(request);
