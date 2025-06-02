@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    url: ENC(wntCqzGjESYYx6m02MThps/hR+80VQGul0GqBE1/jJiFbnbI6eWFoCum3Uc2l/gu)
+    username: ENC(ra3QxBLqTIFiJLA9V5b0SA==)
+    password: ENC(Tjw6tcBXhgkJYmYPUXPzeCpo/LBL2MoO)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+    open-in-view: true
+    show-sql: true
+    generate-ddl: true
+
+  sql:
+    init:
+      mode: always
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+
+  data:
+    redis:
+      host: ENC(DzjelUGE4LHvOiZjNGO/ZkWnVLaSnqb3)
+      port: 6379
+      password: ENC(/3s0KzY2txyvZf2+NhMa4495FdbMT4sv)
+
+jwt:
+  secret: ENC(tAceO54tTCOPQ5UoHSoywdlcJDldRYYCOD3ZMemOky0u8mmH947onqVGNUaZbZT5EVdwOFqnkl8=)
+
+jasypt:
+  encryptor:
+    password: ${JASYPT_ENCRYPTOR_PASSWORD}
