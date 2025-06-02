@@ -85,7 +85,7 @@
 ## 6. 기술 스택 🛠️
 - **백엔드**:
     - Spring Boot 3.3.5
-    - Java 17
+    - Java 21
     - Spring MVC
     - Spring Data JPA
     - MySQL
