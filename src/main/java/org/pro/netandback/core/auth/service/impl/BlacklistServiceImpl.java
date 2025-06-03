@@ -21,8 +21,11 @@ public class BlacklistServiceImpl implements BlacklistService {
 	@Override
 	public void blacklistTokens(String email) {
 
-		redis.delete("refresh:" + email);
-
+		String refresh = redis.opsForValue().get("userRefresh:" + email);
+		redis.delete("userRefresh:" + email);
+		if (refresh != null) {
+			redis.delete("refresh:" + refresh);
+		}
 		String accessToken = jwtProvider.resolveAccessTokenFromHeader();
 		if (accessToken != null) {
 			long remainSec = jwtProvider.getRemainingAccessTokenValidity(accessToken);
