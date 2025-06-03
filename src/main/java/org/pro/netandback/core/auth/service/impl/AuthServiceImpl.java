@@ -13,6 +13,8 @@ import org.pro.netandback.core.error.exception.BusinessException;
 import org.pro.netandback.core.error.exception.EmailAlreadyExistsException;
 import org.pro.netandback.core.error.exception.InvalidValueException;
 import org.pro.netandback.core.error.exception.JwtAuthenticationException;
+import org.pro.netandback.core.validate.auth.AuthValidate;
+import org.pro.netandback.core.validate.jwt.JwtTokenValidate;
 import org.pro.netandback.domain.user.model.entity.User;
 import org.pro.netandback.domain.user.model.mapper.UserMapper;
 import org.pro.netandback.domain.user.repository.UserRepository;
@@ -34,20 +36,16 @@ public class AuthServiceImpl implements AuthService {
 	private final BlacklistService blacklistService;
 	private final RefreshTokenDao refreshTokenDao;
 	private final JwtProvider jwtProvider;
+	private final AuthValidate authValidate;
+	private final JwtTokenValidate jwtTokenValidate;
 
-	//아직 테스트용입니다. 리팩토링 예정
 	@Override
 	@Transactional
 	public User signup(SignUpRequest request) {
-		userRepository.findByEmail(request.getEmail()).ifPresent(u -> {
-			throw new EmailAlreadyExistsException(ErrorCode.EMAIL_ALREADY_EXISTS);
-		});
+		authValidate.validateDuplicateEmail(userRepository.existsByEmail(request.getEmail()));
 		User user = userMapper.toEntity(request);
-		String encoded = passwordEncoder.encode(request.getPassword());
-		user.setPassword(encoded);
-		if (user.getUserType() == null) {
-			throw new InvalidValueException(ErrorCode.INVALID_REQUEST);
-		}
+		user.setPassword(passwordEncoder.encode(request.getPassword()));
+		authValidate.validateSignupParam(user.getUserType());
 		return userRepository.save(user);
 	}
 
@@ -58,12 +56,7 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public TokenResponse reissueRefreshToken(String oldRefreshToken) {
-		String email = refreshTokenDao.findUserIdByRefreshToken(oldRefreshToken)
-			.orElseThrow(() -> new JwtAuthenticationException(ErrorCode.JWT_NOT_FOUND));
-		if (!jwtProvider.validateRefreshToken(oldRefreshToken)) {
-			refreshTokenDao.removeRefreshToken(oldRefreshToken);
-			throw new JwtAuthenticationException(ErrorCode.EXPIRED_JWT);
-		}
+		String email = jwtTokenValidate.validateAndGetEmail(oldRefreshToken);
 		return issueTokens(email);
 	}
 

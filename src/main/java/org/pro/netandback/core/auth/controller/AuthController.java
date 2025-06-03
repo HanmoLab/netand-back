@@ -35,13 +35,11 @@ public class AuthController {
 		return loginHandler.login(loginRequest);
 	}
 
-	//아직 테스트용입니다. 리팩토링 예정
 	@Operation(summary = "회원가입", tags = "인증/인가")
 	@PostMapping("/signup")
-	public ResponseEntity<ResponseDto<String>> signup(@RequestBody @Validated SignUpRequest request) {
-		User created = authService.signup(request);
-		ResponseDto<String> body = ResponseDto.of(HttpStatus.CREATED, "회원가입 성공");
-		return ResponseEntity.status(HttpStatus.CREATED).body(body);
+	public ResponseEntity<ResponseDto<String>> signup(@RequestBody @Validated SignUpRequest signUpRequest) {
+		authService.signup(signUpRequest);
+		return ResponseEntity.ok(ResponseDto.of(HttpStatus.CREATED, "회원가입 성공"));
 	}
 
 	@Operation(summary = "토큰 재발급", tags = {"인증/인가"})
@@ -54,7 +52,7 @@ public class AuthController {
 	@Operation(summary = "로그아웃", tags = {"인증/인가"})
 	@PostMapping("/me/logout")
 	public ResponseEntity<ResponseDto<String>> logout(@CurrentUser User user) {
-		authService.logout(user.getEmail());   // email 기준으로 블랙리스트 처리
+		authService.logout(user.getEmail());
 		return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "로그아웃되었습니다."));
 	}
 }
