@@ -12,7 +12,6 @@ import org.pro.netandback.common.entity.BaseTime;
 import org.pro.netandback.domain.company.model.entity.Company;
 import org.pro.netandback.domain.user.model.type.UserType;
 
-
 @Entity
 @Table(name = "users")
 @Getter
@@ -51,6 +50,18 @@ public class User extends BaseTime {
 	@Column(name = "password", length = 255, nullable = false)
 	private String password;
 
-	@Column(name = "email_verified", nullable = false)
+	@Column(name = "email_verified")
 	private Boolean emailVerified = false;
+
+	public void setPassword(String encodedPassword) {
+		this.password = encodedPassword;
+	}
+
+	public void setUserType(UserType userType) {
+		this.userType = userType;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 }
