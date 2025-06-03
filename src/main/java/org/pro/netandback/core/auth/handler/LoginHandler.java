@@ -3,6 +3,7 @@ package org.pro.netandback.core.auth.handler;
 import java.time.Duration;
 
 import org.pro.netandback.common.dto.ResponseDto;
+import org.pro.netandback.core.auth.dao.RefreshTokenDao;
 import org.pro.netandback.core.auth.dto.request.LoginRequest;
 import org.pro.netandback.core.auth.jwt.JwtProvider;
 import org.pro.netandback.core.auth.jwt.UserDetailsImpl;
@@ -28,6 +29,8 @@ public class LoginHandler {
 
 	private final AuthenticationManager authenticationManager;
 	private final JwtProvider jwtProvider;
+	private final RefreshTokenDao refreshTokenDao;
+	private static final Duration REFRESH_TTL = Duration.ofDays(30);
 
 	public ResponseEntity<ResponseDto<String>> login(LoginRequest loginRequest) {
 		try {
@@ -42,6 +45,9 @@ public class LoginHandler {
 			User user = principal.getUser();
 			String accessToken  = jwtProvider.createAccessToken(user.getEmail());
 			String refreshToken = jwtProvider.createRefreshToken(user.getEmail());
+
+			refreshTokenDao.rotateRefreshToken(user.getEmail(), refreshToken, REFRESH_TTL);
+
 			HttpHeaders headers = new HttpHeaders();
 			headers.set("Authorization", "Bearer " + accessToken);
 
