@@ -7,7 +7,7 @@ import org.pro.netandback.domain.user.model.entity.User;
 public interface AuthService {
 
 	User signup(SignUpRequest request);
-	void logout(String githubId);
+	void logout(String email);
 	TokenResponse reissueRefreshToken(String refreshToken);
 
 }
