@@ -27,9 +27,6 @@ public class User extends BaseTime {
 	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 
-	@Column(name = "birth_date")
-	private LocalDate birthDate;
-
 	@Column(name = "phone", length = 20)
 	private String phone;
 
@@ -40,9 +37,6 @@ public class User extends BaseTime {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
 	private Company company;
-
-	@Column(name = "employee_number", length = 50)
-	private String employeeNumber;
 
 	@Column(name = "email", length = 255, nullable = false, unique = true)
 	private String email;
