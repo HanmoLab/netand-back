@@ -29,7 +29,7 @@ public class SecurityConfig {
 			.exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
 			.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.authorizeHttpRequests(authz -> authz
-				.requestMatchers("/api/v1/auth/login", "/api/v1/auth/signup", "/api/v1/auth/reissue").permitAll()
+				.requestMatchers("/api/v1/auth/login", "/api/v1/auth/signup", "/api/v1/auth/reissue", "/api/v1/auth/email/**").permitAll()
 				.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**", "/webjars/**").permitAll()
 				.anyRequest().authenticated()
 			)

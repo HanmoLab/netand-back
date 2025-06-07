@@ -2,6 +2,7 @@ package org.pro.netandback.core.validate.auth;
 
 import org.pro.netandback.core.error.ErrorCode;
 import org.pro.netandback.core.error.exception.EmailAlreadyExistsException;
+import org.pro.netandback.core.error.exception.EmailNotVerifiedException;
 import org.pro.netandback.core.error.exception.InvalidValueException;
 import org.pro.netandback.domain.user.model.type.UserType;
 import org.springframework.stereotype.Component;
@@ -20,4 +21,5 @@ public class AuthValidate {
 			throw new InvalidValueException(ErrorCode.INVALID_REQUEST);
 		}
 	}
+
 }

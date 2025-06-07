@@ -3,6 +3,8 @@ package org.pro.netandback.core.auth.controller;
 import org.pro.netandback.common.annotation.CurrentUser;
 import org.pro.netandback.common.dto.ResponseDto;
 import org.pro.netandback.core.annotation.ApiController;
+import org.pro.netandback.core.auth.dto.request.EmailCodeVerifyRequest;
+import org.pro.netandback.core.auth.dto.request.EmailRequest;
 import org.pro.netandback.core.auth.dto.request.LoginRequest;
 import org.pro.netandback.core.auth.dto.request.RefreshRequest;
 import org.pro.netandback.core.auth.dto.request.SignUpRequest;
@@ -10,6 +12,7 @@ import org.pro.netandback.core.auth.dto.response.TokenResponse;
 import org.pro.netandback.core.auth.handler.LoginHandler;
 import org.pro.netandback.core.auth.jwt.JwtProvider;
 import org.pro.netandback.core.auth.service.AuthService;
+import org.pro.netandback.core.auth.service.EmailService;
 import org.pro.netandback.domain.user.model.entity.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +31,7 @@ public class AuthController {
 	private final LoginHandler loginHandler;
 	private final AuthService authService;
 	private final JwtProvider jwtProvider;
+	private final EmailService emailService;
 
 	@Operation(summary = "로그인", tags = "인증/인가")
 	@PostMapping("/login")
@@ -54,5 +58,19 @@ public class AuthController {
 	public ResponseEntity<ResponseDto<String>> logout(@CurrentUser User user) {
 		authService.logout(user.getEmail());
 		return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "로그아웃되었습니다."));
+	}
+
+	@Operation(summary = "이메일 코드 전송", tags = {"이메일 인증"})
+	@PostMapping("/email/send")
+	public ResponseEntity<ResponseDto<String>> sendCode(@RequestBody EmailRequest request) {
+		emailService.sendCode(request.getEmail());
+		return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "이메일 인증 코드가 전송되었습니다."));
+	}
+
+	@Operation(summary = "이메일 코드 확인", tags = {"이메일 인증"})
+	@PostMapping("/email/verify")
+	public ResponseEntity<ResponseDto<String>> verifyCode(@RequestBody EmailCodeVerifyRequest request) {
+		emailService.verifyCode(request.getCode());
+		return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "이메일 인증이 완료되었습니다."));
 	}
 }

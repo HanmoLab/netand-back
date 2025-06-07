@@ -30,6 +30,23 @@ spring:
       port: 6379
       password: ENC(/3s0KzY2txyvZf2+NhMa4495FdbMT4sv)
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ENC(rJZjJpiqvSvvJtaBUj7ynl4A1nJDQbk5QTk1PhW2yUg=)
+    password: ENC(ze6ddLHadAfsIjV/rh+W0TjOCBMCJ/Nt88bBKiiizjY=)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+    auth-code-expiration-millis: 1800000
+
 jwt:
   secret: ENC(tAceO54tTCOPQ5UoHSoywdlcJDldRYYCOD3ZMemOky0u8mmH947onqVGNUaZbZT5EVdwOFqnkl8=)
 

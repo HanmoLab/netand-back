@@ -3,6 +3,8 @@ package org.pro.netandback.core.auth.service.impl;
 import java.time.Duration;
 
 import org.pro.netandback.core.auth.dao.RefreshTokenDao;
+import org.pro.netandback.core.auth.dto.request.EmailCodeVerifyRequest;
+import org.pro.netandback.core.auth.dto.request.EmailRequest;
 import org.pro.netandback.core.auth.dto.request.SignUpRequest;
 import org.pro.netandback.core.auth.dto.response.TokenResponse;
 import org.pro.netandback.core.auth.jwt.JwtProvider;

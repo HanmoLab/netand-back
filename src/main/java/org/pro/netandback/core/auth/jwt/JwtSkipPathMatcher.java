@@ -12,6 +12,7 @@ public class JwtSkipPathMatcher {
 		"/api/v1/auth/login",
 		"/api/v1/auth/signup",
 		"/api/v1/auth/reissue",
+		"/api/v1/auth/email",
 		"/v3/api-docs",
 		"/swagger-ui",
 		"/swagger-resources",
