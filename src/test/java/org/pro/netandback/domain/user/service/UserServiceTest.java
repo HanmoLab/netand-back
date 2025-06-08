@@ -11,12 +11,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.pro.netandback.core.auth.dto.request.WithdrawalRequest;
 import org.pro.netandback.core.auth.dto.response.UserResponse;
-import org.pro.netandback.core.auth.mapper.UserResponseMapper;
-import org.pro.netandback.core.error.exception.BusinessException;
+import org.pro.netandback.core.error.ErrorCode;
+import org.pro.netandback.domain.user.exception.InvalidPasswordException;
 import org.pro.netandback.domain.user.model.entity.User;
+import org.pro.netandback.domain.user.model.mapper.UserToResponseMapper;
 import org.pro.netandback.domain.user.repository.UserRepository;
 import org.pro.netandback.domain.user.service.impl.UserServiceImpl;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.pro.netandback.domain.user.validate.UserValidate;
 
 @DisplayName("UserService 기능 테스트")
 class UserServiceTest {
@@ -25,10 +26,10 @@ class UserServiceTest {
 	private UserRepository userRepository;
 
 	@Mock
-	private PasswordEncoder passwordEncoder;
+	private UserToResponseMapper userToResponseMapper;
 
 	@Mock
-	private UserResponseMapper userResponseMapper;
+	private UserValidate userValidate;
 
 	@InjectMocks
 	private UserServiceImpl userService;
@@ -65,27 +66,29 @@ class UserServiceTest {
 	@DisplayName("내 정보 조회 시 매퍼 호출하고 DTO 반환")
 	void getProfile_returnsUserProfileResponse() {
 		// given
-		given(userResponseMapper.userResponse(currentUser)).willReturn(userResponse);
+		given(userToResponseMapper.toResponse(currentUser))
+			.willReturn(userResponse);
 
 		// when
-		UserResponse result = userService.getProfile(currentUser);
+		UserResponse result = userService.getCurrentUserProfile(currentUser);
 
 		// then
 		assertSame(userResponse, result);
-		then(userResponseMapper).should().userResponse(currentUser);
+		then(userToResponseMapper).should().toResponse(currentUser);
 	}
 
 	@Test
-	@DisplayName("잘못된 비밀번호로 회원 탈퇴 요청 시 BusinessException 발생")
-	void withdraw_withWrongPassword_throwsBusinessException() {
+	@DisplayName("잘못된 비밀번호로 회원 탈퇴 요청 시 InvalidPasswordException 발생")
+	void withdraw_withWrongPassword_throwsInvalidPasswordException() {
 		// given
 		WithdrawalRequest req = new WithdrawalRequest();
 		req.setPassword("wrong");
-		given(passwordEncoder.matches("wrong", currentUser.getPassword()))
-			.willReturn(false);
+		willThrow(new InvalidPasswordException(ErrorCode.PASSWORD_MISMATCH))
+			.given(userValidate)
+			.validatePasswordMatch("wrong", currentUser.getPassword());
 
 		// when & then
-		assertThrows(BusinessException.class,
+		assertThrows(InvalidPasswordException.class,
 			() -> userService.withdraw(currentUser, req)
 		);
 	}
@@ -96,8 +99,8 @@ class UserServiceTest {
 		// given
 		WithdrawalRequest req = new WithdrawalRequest();
 		req.setPassword("correct");
-		given(passwordEncoder.matches("correct", currentUser.getPassword()))
-			.willReturn(true);
+		willDoNothing().given(userValidate)
+			.validatePasswordMatch("correct", currentUser.getPassword());
 
 		// when
 		userService.withdraw(currentUser, req);

@@ -27,7 +27,9 @@ public enum ErrorCode {
 	EMAIL_ALREADY_EXISTS(409, "U003", "이미 사용 중인 이메일입니다."),
 	EMAIL_NOT_VERIFIED(400, "U004", "이메일 인증이 필요합니다."),
 	EMAIL_CODE_EXPIRED(400, "U005", "인증 코드가 만료되었거나 존재하지 않습니다."),
-	EMAIL_CODE_MISMATCH(400, "U006", "인증 코드가 일치하지 않습니다.");
+	EMAIL_CODE_MISMATCH(400, "U006", "인증 코드가 일치하지 않습니다."),
+	PASSWORD_MISMATCH(400, "U007", "비밀번호가 일치하지 않습니다.");
+
 	private final String code;
 	private final String message;
 	private int status;
