@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.pro.netandback.core.auth.dao.RefreshTokenDao;
 import org.pro.netandback.core.auth.dto.request.WithdrawalRequest;
 import org.pro.netandback.core.auth.dto.response.UserResponse;
+import org.pro.netandback.core.auth.service.BlacklistService;
 import org.pro.netandback.core.error.ErrorCode;
 import org.pro.netandback.domain.user.exception.InvalidPasswordException;
 import org.pro.netandback.domain.user.model.entity.User;
@@ -24,13 +26,14 @@ class UserServiceTest {
 
 	@Mock
 	private UserRepository userRepository;
-
 	@Mock
 	private UserToResponseMapper userToResponseMapper;
-
 	@Mock
 	private UserValidate userValidate;
-
+	@Mock
+	private RefreshTokenDao refreshTokenDao;          // 추가
+	@Mock
+	private BlacklistService blacklistService;
 	@InjectMocks
 	private UserServiceImpl userService;
 
@@ -91,6 +94,9 @@ class UserServiceTest {
 		assertThrows(InvalidPasswordException.class,
 			() -> userService.withdraw(currentUser, req)
 		);
+		then(userRepository).should(never()).delete(any());
+		then(refreshTokenDao).should(never()).removeRefreshToken(any());
+		then(blacklistService).should(never()).blacklistTokens(any());
 	}
 
 	@Test
@@ -107,5 +113,7 @@ class UserServiceTest {
 
 		// then
 		then(userRepository).should().delete(currentUser);
+		then(refreshTokenDao).should().removeRefreshToken(currentUser.getEmail());
+		then(blacklistService).should().blacklistTokens(currentUser.getEmail());
 	}
 }
