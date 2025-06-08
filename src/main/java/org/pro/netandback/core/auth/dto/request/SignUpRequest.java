@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SignUpRequest {
 	private String name;
-	private LocalDate birthDate;
 	private String phone;
 	private String userType;
-	private String employeeNumber;
 	private String email;
 	private String password;
 }
