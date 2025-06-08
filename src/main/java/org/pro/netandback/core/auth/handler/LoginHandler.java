@@ -9,6 +9,7 @@ import org.pro.netandback.core.auth.jwt.JwtProvider;
 import org.pro.netandback.core.auth.jwt.UserDetailsImpl;
 import org.pro.netandback.core.error.ErrorCode;
 import org.pro.netandback.core.error.exception.AuthFailedException;
+import org.pro.netandback.core.validate.email.EmailValidate;
 import org.pro.netandback.domain.user.model.entity.User;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,7 @@ public class LoginHandler {
 	private final AuthenticationManager authenticationManager;
 	private final JwtProvider jwtProvider;
 	private final RefreshTokenDao refreshTokenDao;
+	private final EmailValidate emailValidate;
 	private static final Duration REFRESH_TTL = Duration.ofDays(30);
 
 	public ResponseEntity<ResponseDto<String>> login(LoginRequest loginRequest) {
@@ -43,6 +45,9 @@ public class LoginHandler {
 
 			UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
 			User user = principal.getUser();
+
+			emailValidate.validateEmailVerified(user.getEmailVerified());
+
 			String accessToken  = jwtProvider.createAccessToken(user.getEmail());
 			String refreshToken = jwtProvider.createRefreshToken(user.getEmail());
 
