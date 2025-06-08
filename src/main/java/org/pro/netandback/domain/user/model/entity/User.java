@@ -58,4 +58,8 @@ public class User extends BaseTime {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
+
+	public void setEmailVerified(Boolean emailVerified) {
+		this.emailVerified = emailVerified;
+	}
 }

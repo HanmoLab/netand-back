@@ -10,12 +10,14 @@ import org.pro.netandback.core.auth.dto.response.TokenResponse;
 import org.pro.netandback.core.auth.jwt.JwtProvider;
 import org.pro.netandback.core.auth.service.AuthService;
 import org.pro.netandback.core.auth.service.BlacklistService;
+import org.pro.netandback.core.auth.service.EmailService;
 import org.pro.netandback.core.error.ErrorCode;
 import org.pro.netandback.core.error.exception.BusinessException;
 import org.pro.netandback.core.error.exception.EmailAlreadyExistsException;
 import org.pro.netandback.core.error.exception.InvalidValueException;
 import org.pro.netandback.core.error.exception.JwtAuthenticationException;
 import org.pro.netandback.core.validate.auth.AuthValidate;
+import org.pro.netandback.core.validate.email.EmailValidate;
 import org.pro.netandback.core.validate.jwt.JwtTokenValidate;
 import org.pro.netandback.domain.user.model.entity.User;
 import org.pro.netandback.domain.user.model.mapper.UserMapper;
@@ -40,13 +42,19 @@ public class AuthServiceImpl implements AuthService {
 	private final JwtProvider jwtProvider;
 	private final AuthValidate authValidate;
 	private final JwtTokenValidate jwtTokenValidate;
+	private final EmailService emailService;
+	private final EmailValidate emailValidate;
 
 	@Override
 	@Transactional
 	public User signup(SignUpRequest request) {
 		authValidate.validateDuplicateEmail(userRepository.existsByEmail(request.getEmail()));
+		boolean verified = emailService.isEmailVerified(request.getEmail());
+		emailValidate.validateEmailVerified(verified);
+		emailService.clearVerified(request.getEmail());
 		User user = userMapper.toEntity(request);
 		user.setPassword(passwordEncoder.encode(request.getPassword()));
+		user.setEmailVerified(true);
 		authValidate.validateSignupParam(user.getUserType());
 		return userRepository.save(user);
 	}
