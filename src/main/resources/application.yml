@@ -1,3 +1,6 @@
+openapi:
+  server-url: https://netand.store
+
 spring:
   datasource:
     url: ENC(UoECUY5gc3ibrJcBDNn9AhTAGb4gNBpfbrh/Y0RbBR2n+QBrXP9B2o9yTrykkHiZazMVL2aMHADM/wWdP06X0X/orz/RNxkBWcWv6oxrFHgsauIgTzOkEvnLCmL36m1mwC1Vhhech0mVzHhH1sLLr+dHbnorLW/IfTBrS6LDGGqDbocZDGDNPnVcws70Yg0OgjYDBlgvWGbkftqYDuSy9w==)
