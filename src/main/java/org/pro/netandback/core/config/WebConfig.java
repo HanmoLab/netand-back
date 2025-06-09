@@ -7,13 +7,21 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-	//아직 배포 전이라 열어둡니다.
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-			.allowedOrigins("*")
+			.allowedOrigins(
+				"http://localhost:3000",
+				"https://localhost:3000",
+				"https://netand.store",
+				"https://www.netand.store",
+				"http://netand.store",
+				"http://www.netand.store"
+				)
 			.allowedMethods("*")
-			.allowedHeaders("*");
+			.allowedHeaders("*")
+			.allowCredentials(true)
+			.exposedHeaders("Authorization");
 	}
 
 }
