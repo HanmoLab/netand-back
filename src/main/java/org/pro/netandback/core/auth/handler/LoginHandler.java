@@ -58,7 +58,7 @@ public class LoginHandler {
 
 			ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
 				.httpOnly(true)
-				.secure(false)              // 배포할 때 HTTPS라면 true로 변경
+				.secure(true)              // 배포할 때 HTTPS라면 true로 변경
 				.path("/")
 				.maxAge(Duration.ofDays(30))
 				.sameSite("Lax")
