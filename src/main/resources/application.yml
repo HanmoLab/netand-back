@@ -50,6 +50,12 @@ spring:
           writetimeout: 5000
     auth-code-expiration-millis: 1800000
 
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 7MB
+      max-request-size: 7MB
+
 cloud:
   aws:
     s3:
