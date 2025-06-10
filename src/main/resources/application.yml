@@ -50,6 +50,14 @@ spring:
           writetimeout: 5000
     auth-code-expiration-millis: 1800000
 
+cloud:
+  aws:
+    s3:
+      access-key: ENC(AgAOjH7jPCqiJIoNLQJVAn6orAveMjNcfO5JBJk0Oko=)
+      bucket: ENC(CUhZ5j6U5eEsvUXU3jdfQcfTT1db34kZ)
+      region: ap-northeast-2
+      secret-key: ENC(t+HGZc/ngh6rcWhXPptO3EHbyXXgRv56w1rv+D3YouAyafXoOl7vY+P4gWiiv3/8RyvHPiS1h6M=)
+
 jwt:
   secret: ENC(tAceO54tTCOPQ5UoHSoywdlcJDldRYYCOD3ZMemOky0u8mmH947onqVGNUaZbZT5EVdwOFqnkl8=)
 
