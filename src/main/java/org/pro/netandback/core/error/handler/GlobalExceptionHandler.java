@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.pro.netandback.core.error.ErrorCode;
 import org.pro.netandback.core.error.exception.BusinessException;
+import org.pro.netandback.core.error.exception.JwtAuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -61,5 +62,12 @@ public class GlobalExceptionHandler {
 		log.error("handleEntityNotFoundException", e);
 		final ErrorResponse response = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR);
 		return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@ExceptionHandler(JwtAuthenticationException.class)
+	protected ResponseEntity<ErrorResponse> handleAccessDeniedException(JwtAuthenticationException e) {
+		log.error("handleAccessDeniedException", e);
+		final ErrorResponse response = ErrorResponse.of(ErrorCode.AUTHENTICATION_FAILED);
+		return new ResponseEntity<>(response, HttpStatus.valueOf(ErrorCode.AUTHENTICATION_FAILED.getStatus()));
 	}
 }
