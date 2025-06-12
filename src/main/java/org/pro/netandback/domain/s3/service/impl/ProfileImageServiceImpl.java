@@ -63,16 +63,11 @@ public class ProfileImageServiceImpl implements ProfileImageService {
 	@Override
 	@Transactional(readOnly = true)
 	public String getProfileImageUrl(Long userId) {
-		String key = repository
+		return repository
 			.findFirstByOwnerTypeAndOwnerId(S3OwnerType.USER_PROFILE, userId)
-			.map(o -> o.getS3Key())
-			.orElseThrow(() -> new ProfileImageException(ErrorCode.PROFILE_IMAGE_NOT_FOUND));
-
-		return UrlUtils.buildS3Url(
-			s3Properties.getBucket(),
-			s3Properties.getRegion(),
-			key
-		);
+			.map(S3Object::getS3Key)
+			.map(key -> UrlUtils.buildS3Url(s3Properties.getBucket(), s3Properties.getRegion(), key))
+			.orElse(null);
 	}
 
 	@Override
