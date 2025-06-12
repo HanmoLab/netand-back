@@ -32,7 +32,8 @@ public enum ErrorCode {
 
 	// S3
 	PROFILE_IMAGE_UPLOAD_FAILED(500, "P001", "프로필 이미지 업로드에 실패했습니다."),
-	PROFILE_IMAGE_NOT_FOUND   (404, "P002", "프로필 이미지가 존재하지 않습니다.");
+	PROFILE_IMAGE_NOT_FOUND   (404, "P002", "프로필 이미지가 존재하지 않습니다."),
+	PROFILE_IMAGE_DELETE_FAILED(500, "P003", "프로필 이미지 삭제에 실패했습니다.");
 
 
 	private final String code;
