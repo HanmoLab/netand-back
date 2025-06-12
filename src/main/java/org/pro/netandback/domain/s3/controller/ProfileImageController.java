@@ -11,6 +11,7 @@ import org.pro.netandback.common.dto.ResponseDto;
 import org.pro.netandback.core.annotation.ApiController;
 import org.pro.netandback.domain.s3.service.ProfileImageService;
 import org.pro.netandback.domain.user.model.entity.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +27,22 @@ public class ProfileImageController {
 	public ResponseEntity<ResponseDto<String>> uploadProfileImage(@CurrentUser User currentUser, @Parameter(
 		description = "업로드할 이미지 파일", required = true, content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE, schema = @Schema(type = "string", format = "binary")))
 		@RequestPart("file") MultipartFile file) {
-		return profileImageService.uploadProfileImage(currentUser.getId(), file);
+		return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "프로필 이미지 업로드 성공", profileImageService.uploadProfileImage(currentUser.getId(), file)));
 	}
 
 	@Operation(summary = "프로필 이미지 확인", tags = "프로필 이미지")
 	@GetMapping("/me/profile-image")
 	public ResponseEntity<ResponseDto<String>> getProfileImageUrl(@CurrentUser User currentUser) {
-		return profileImageService.getProfileImageUrl(currentUser.getId());
+		{
+			return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "프로필 이미지 조회 성공",
+				profileImageService.getProfileImageUrl(currentUser.getId())));
+		}
+	}
+
+	@Operation(summary = "프로필 이미지 삭제", tags = "프로필 이미지")
+	@DeleteMapping("/me/profile-image")
+	public ResponseEntity<ResponseDto<Void>> deleteProfileImage(@CurrentUser User currentUser) {
+		profileImageService.deleteProfileImage(currentUser.getId());
+		return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "프로필 이미지 삭제 성공", null));
 	}
 }
