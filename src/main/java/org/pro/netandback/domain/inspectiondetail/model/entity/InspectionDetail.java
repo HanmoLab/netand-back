@@ -25,6 +25,9 @@ public class InspectionDetail extends BaseTime {
 	@Column(name = "item_name", length = 100, nullable = false)
 	private String itemName;
 
+	@Column(name = "system_check", length = 100)
+	private String systemCheck;
+
 	@Column(name = "measured_value", length = 100)
 	private String measuredValue;
 
