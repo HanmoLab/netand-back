@@ -1,11 +1,10 @@
 package org.pro.netandback.domain.s3.service;
 
-import java.io.IOException;
-import java.util.Optional;
-
+import org.pro.netandback.common.dto.ResponseDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ProfileImageService {
-	String uploadProfileImage(Long userId, MultipartFile file) throws IOException;
-	Optional<String> getProfileImageKey(Long userId);
+	ResponseEntity<ResponseDto<String>> uploadProfileImage(Long userId, MultipartFile file);
+	ResponseEntity<ResponseDto<String>> getProfileImageUrl(Long userId);
 }
