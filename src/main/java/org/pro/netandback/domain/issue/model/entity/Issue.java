@@ -59,5 +59,8 @@ public class Issue extends BaseTime {
 
 	@Column(name = "due_date")
 	private LocalDate dueDate;
+
+	@Column(name = "progress", nullable = false)
+	private int progress;
 }
 
