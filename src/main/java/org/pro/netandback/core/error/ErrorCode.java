@@ -28,7 +28,12 @@ public enum ErrorCode {
 	EMAIL_NOT_VERIFIED(400, "U004", "이메일 인증이 필요합니다."),
 	EMAIL_CODE_EXPIRED(400, "U005", "인증 코드가 만료되었거나 존재하지 않습니다."),
 	EMAIL_CODE_MISMATCH(400, "U006", "인증 코드가 일치하지 않습니다."),
-	PASSWORD_MISMATCH(400, "U007", "비밀번호가 일치하지 않습니다.");
+	PASSWORD_MISMATCH(400, "U007", "비밀번호가 일치하지 않습니다."),
+
+	// S3
+	PROFILE_IMAGE_UPLOAD_FAILED(500, "P001", "프로필 이미지 업로드에 실패했습니다."),
+	PROFILE_IMAGE_NOT_FOUND   (404, "P002", "프로필 이미지가 존재하지 않습니다.");
+
 
 	private final String code;
 	private final String message;
