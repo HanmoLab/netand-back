@@ -1,5 +1,7 @@
 package org.pro.netandback.domain.issue.dto.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.pro.netandback.domain.issue.model.type.IssueStatus;
@@ -10,6 +12,8 @@ import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class IssueCreateRequest {
     private IssueType issueType;
     private Priority priority;
@@ -17,7 +21,6 @@ public class IssueCreateRequest {
     private String title;
     private String description;
     private LocalDate dueDate;
-    private int progress;
     private Long companyId;
     private Long reporterId;
     private Long assigneeId;
