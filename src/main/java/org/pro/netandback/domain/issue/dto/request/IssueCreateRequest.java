@@ -24,5 +24,5 @@ public class IssueCreateRequest {
     private Long companyId;
     private Long reporterId;
     private Long assigneeId;
-    private Long productId;
+    private String productCode;
 }
