@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class InspectionResponse {
+	private Long inspectionId;
 	private String companyName;
 	private String productName;
 	private String inspector;

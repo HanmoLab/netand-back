@@ -9,6 +9,7 @@ import org.pro.netandback.domain.inspection.model.entity.Inspection;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface InspectionMapper {
 
+	@Mapping(target = "inspectionId",    source = "id")
 	@Mapping(target = "companyName",        source = "company.name")
 	@Mapping(target = "productName",        source = "product.name")
 	@Mapping(target = "inspector",          source = "inspector.name")
