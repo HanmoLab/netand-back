@@ -29,20 +29,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public ProductResponse createProduct(ProductRequest req, User currentUser) {
-		// 1) code 중복 검사
 		productValidate.validateNewCode(req.getCode());
-
-		// 2) 회사 검증
 		Company company = companyValidate.validateCompanyById(req.getCompanyId());
-
-		// 3) 엔티티 생성
 		Product product = Product.builder()
 			.code(req.getCode())
 			.company(company)
 			.name(req.getName())
 			.build();
-
-		// 4) 저장 및 반환
 		Product saved = productRepository.save(product);
 		return productMapper.toProductResponse(saved);
 	}
@@ -50,9 +43,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<ProductResponse> listByCompany(Long companyId, User currentUser) {
-		// 회사 검증
 		companyValidate.validateCompanyById(companyId);
-
 		List<Product> products = productRepository.findByCompanyId(companyId);
 		return productMapper.toProductResponseList(products);
 	}
@@ -60,16 +51,9 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public ProductResponse updateProduct(Long productId, ProductRequest req, User currentUser) {
-		// 1) 기존 제품 조회
 		Product existing = productValidate.validateProductById(productId);
-
-		// 2) (옵션) code 변경 불가: req.getCode()와 비교해 다르면 예외 던지거나 무시
-
-		// 3) 회사 및 이름 업데이트
 		existing.setCompany(companyValidate.validateCompanyById(req.getCompanyId()));
 		existing.setName(req.getName());
-
-		// 4) 저장 및 반환
 		Product updated = productRepository.save(existing);
 		return productMapper.toProductResponse(updated);
 	}
@@ -77,9 +61,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void deleteProduct(Long productId, User currentUser) {
-		// 1) 조회 및 검증
 		Product existing = productValidate.validateProductById(productId);
-		// 2) 삭제
 		productRepository.delete(existing);
 	}
 }
