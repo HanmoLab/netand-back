@@ -25,6 +25,26 @@ public class InspectionController {
 	public ResponseEntity<ResponseDto<InspectionResponse>>registerInspection(@RequestBody InspectionRequest request, @CurrentUser User currentUser) {
 		InspectionResponse response = inspectionService.registerInspection(request, currentUser);
 		return ResponseEntity.ok(ResponseDto.of(HttpStatus.CREATED, "정기점검 등록 성공", response));
+	}
 
+	@Operation(summary = "정기점검 수정", tags = "정기점검")
+	@PutMapping("/{inspectionId}")
+	public ResponseEntity<ResponseDto<InspectionResponse>> updateInspection(@PathVariable Long inspectionId, @RequestBody InspectionRequest request, @CurrentUser User currentUser) {
+		InspectionResponse dto = inspectionService.updateInspection(inspectionId, request, currentUser);
+		return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "정기점검 수정 성공", dto));
+	}
+
+	@Operation(summary = "정기점검 단건 조회", tags = "정기점검")
+	@GetMapping("/{inspectionId}")
+	public ResponseEntity<ResponseDto<InspectionResponse>> getInspection(@PathVariable Long inspectionId, @CurrentUser User currentUser) {
+		InspectionResponse result = inspectionService.getInspectionDetail(inspectionId, currentUser);
+		return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "정기점검 조회 성공", result));
+	}
+
+	@Operation(summary = "정기점검 삭제", tags = "정기점검")
+	@DeleteMapping("/{inspectionId}")
+	public ResponseEntity<ResponseDto<Void>> deleteInspection(@PathVariable Long inspectionId, @CurrentUser User currentUser) {
+		inspectionService.deleteInspection(inspectionId, currentUser);
+		return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "정기점검 삭제 성공", null));
 	}
 }
