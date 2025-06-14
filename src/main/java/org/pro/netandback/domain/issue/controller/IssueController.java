@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @ApiController("/api/v1/issues")
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class IssueController {
 
     @Operation(summary = "이슈 생성", tags = {"이슈"})
     @PostMapping
-    public ResponseEntity<ResponseDto<IssueCreateResponse>> createIssue(@CurrentUser User reporter, IssueCreateRequest request) {
+    public ResponseEntity<ResponseDto<IssueCreateResponse>> createIssue(@CurrentUser User reporter, @RequestBody IssueCreateRequest request) {
         IssueCreateResponse response = issueService.createIssue(reporter, request);
         return ResponseEntity.ok(ResponseDto.of(HttpStatus.CREATED, "이슈 생성 성공", response));
     }
