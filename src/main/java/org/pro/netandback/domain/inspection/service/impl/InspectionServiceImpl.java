@@ -14,6 +14,7 @@ import org.pro.netandback.domain.inspection.model.mapper.InspectionMapper;
 import org.pro.netandback.domain.inspection.repository.InspectionRepository;
 import org.pro.netandback.domain.inspection.service.InspectionService;
 import org.pro.netandback.domain.inspection.validate.InspectionValidate;
+import org.pro.netandback.domain.notify.util.NotificationHelper;
 import org.pro.netandback.domain.product.model.entity.Product;
 import org.pro.netandback.domain.product.validate.ProductValidate;
 import org.pro.netandback.domain.user.model.entity.User;
@@ -30,6 +31,7 @@ public class InspectionServiceImpl implements InspectionService {
 	private final ProductValidate productValidate;
 	private final CompanyValidate companyValidate;
 	private final InspectionValidate inspectionValidate;
+	private final NotificationHelper notificationHelper;
 
 	@Override
 	@Transactional
@@ -38,6 +40,7 @@ public class InspectionServiceImpl implements InspectionService {
 		Product product = productValidate.validateProductByName(request.getProductName());
 		Inspection inspection = Inspection.of(request, company, product, currentUser);
 		Inspection saved = inspectionRepository.save(inspection);
+		notificationHelper.inspectionRegistered(currentUser, saved.getId());
 		return inspectionMapper.toResponse(saved);
 	}
 

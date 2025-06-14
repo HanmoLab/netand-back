@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 
 import org.pro.netandback.common.dto.ResponseDto;
+import org.pro.netandback.core.annotation.ApiController;
 import org.pro.netandback.domain.inspection.dto.request.InspectionRequest;
 import org.pro.netandback.domain.inspection.dto.response.InspectionListResponse;
 import org.pro.netandback.domain.inspection.dto.response.InspectionResponse;
@@ -16,9 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/inspections")
+@ApiController("/api/v1/inspections")
 public class InspectionController {
 
 	private final InspectionService inspectionService;
