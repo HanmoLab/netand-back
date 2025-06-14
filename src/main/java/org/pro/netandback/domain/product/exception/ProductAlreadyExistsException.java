@@ -1,4 +1,10 @@
 package org.pro.netandback.domain.product.exception;
 
-public class ProductAlreadyExistsException {
+import org.pro.netandback.core.error.ErrorCode;
+import org.pro.netandback.core.error.exception.BusinessException;
+
+public class ProductAlreadyExistsException extends BusinessException {
+	public ProductAlreadyExistsException(ErrorCode errorCode) {
+		super(errorCode);
+	}
 }
