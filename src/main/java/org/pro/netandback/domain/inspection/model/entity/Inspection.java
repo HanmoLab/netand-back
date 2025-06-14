@@ -61,22 +61,32 @@ public class Inspection extends BaseTime {
 	@JoinColumn(name = "inspector_id", nullable = false)
 	private User inspector;
 
-	public static Inspection of(InspectionRequest req, Company company, Product product, User inspector) {Inspection insp = new Inspection();
-		insp.company            = company;
-		insp.product            = product;
-		insp.inspectionDate     = req.getInspectionDate();
-		insp.nextInspectionDate = req.getNextInspectionDate();
-		insp.status             = req.getStatus();
-		insp.inspectionType     = req.getInspectionType();
-		insp.reportFilePath     = req.getInspectionHistory();
-		insp.inspector          = inspector;
+	public static Inspection of(InspectionRequest req, Company company, Product product, User inspector) {
+		Inspection insp = new Inspection();
+		insp.applyRequest(req, company, product, inspector);
+		return insp;
+	}
 
+	public void updateFromRequest(InspectionRequest req, Company company, Product product, User inspector) {
+		applyRequest(req, company, product, inspector);
+	}
+
+	private void applyRequest(InspectionRequest req, Company company, Product product, User inspector) {
+		this.company            = company;
+		this.product            = product;
+		this.inspectionDate     = req.getInspectionDate();
+		this.nextInspectionDate = req.getNextInspectionDate();
+		this.status             = req.getStatus();
+		this.inspectionType     = req.getInspectionType();
+		this.reportFilePath     = req.getInspectionHistory();
+		this.inspector          = inspector;
+
+		this.details.clear();
 		if (req.getDetails() != null) {
 			for (InspectionDetailRequest dto : req.getDetails()) {
-				insp.addDetail(InspectionDetail.from(dto, insp));
+				this.addDetail(InspectionDetail.from(dto, this));
 			}
 		}
-		return insp;
 	}
 
 	public void addDetail(InspectionDetail detail) {
