@@ -3,17 +3,23 @@ package org.pro.netandback.domain.inspection.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.pro.netandback.common.entity.BaseTime;
 import org.pro.netandback.domain.company.model.entity.Company;
+import org.pro.netandback.domain.inspection.dto.request.InspectionRequest;
 import org.pro.netandback.domain.inspection.model.type.InspectionStatus;
+import org.pro.netandback.domain.inspectiondetail.dto.request.InspectionDetailRequest;
+import org.pro.netandback.domain.inspectiondetail.model.entity.InspectionDetail;
 import org.pro.netandback.domain.product.model.entity.Product;
+import org.pro.netandback.domain.user.model.entity.User;
 
 @Entity
 @Table(name = "inspections")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Inspection extends BaseTime {
 
 	@Id
@@ -48,4 +54,43 @@ public class Inspection extends BaseTime {
 	@Column(name = "report_file_path", length = 255)
 	private String reportFilePath;
 
+	@OneToMany(mappedBy = "inspection", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<InspectionDetail> details = new ArrayList<>();
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "inspector_id", nullable = false)
+	private User inspector;
+
+	public static Inspection of(InspectionRequest req, Company company, Product product, User inspector) {
+		Inspection insp = new Inspection();
+		insp.applyRequest(req, company, product, inspector);
+		return insp;
+	}
+
+	public void updateFromRequest(InspectionRequest req, Company company, Product product, User inspector) {
+		applyRequest(req, company, product, inspector);
+	}
+
+	private void applyRequest(InspectionRequest req, Company company, Product product, User inspector) {
+		this.company            = company;
+		this.product            = product;
+		this.inspectionDate     = req.getInspectionDate();
+		this.nextInspectionDate = req.getNextInspectionDate();
+		this.status             = req.getStatus();
+		this.inspectionType     = req.getInspectionType();
+		this.reportFilePath     = req.getInspectionHistory();
+		this.inspector          = inspector;
+
+		this.details.clear();
+		if (req.getDetails() != null) {
+			for (InspectionDetailRequest dto : req.getDetails()) {
+				this.addDetail(InspectionDetail.from(dto, this));
+			}
+		}
+	}
+
+	public void addDetail(InspectionDetail detail) {
+		detail.setInspection(this);
+		this.details.add(detail);
+	}
 }

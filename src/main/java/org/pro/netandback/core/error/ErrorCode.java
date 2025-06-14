@@ -33,7 +33,22 @@ public enum ErrorCode {
 	// S3
 	PROFILE_IMAGE_UPLOAD_FAILED(500, "P001", "프로필 이미지 업로드에 실패했습니다."),
 	PROFILE_IMAGE_NOT_FOUND   (404, "P002", "프로필 이미지가 존재하지 않습니다."),
-	PROFILE_IMAGE_DELETE_FAILED(500, "P003", "프로필 이미지 삭제에 실패했습니다.");
+	PROFILE_IMAGE_DELETE_FAILED(500, "P003", "프로필 이미지 삭제에 실패했습니다."),
+
+	// Inspection (정기점검)
+	INSPECTION_NOT_FOUND(404, "I001", "정기점검 정보를 찾을 수 없습니다."),
+	INSPECTION_ALREADY_EXISTS(409, "I002", "이미 등록된 정기점검입니다."),
+	INVALID_INSPECTION_DATE(400, "I003", "유효하지 않은 점검일자입니다."),
+
+	// Product (제품)
+	PRODUCT_NOT_FOUND(404, "PR001", "제품 정보를 찾을 수 없습니다."),
+	PRODUCT_ALREADY_EXISTS(409, "PR002", "이미 등록된 제품입니다."),
+	INVALID_PRODUCT_CODE(400, "PR003", "유효하지 않은 제품 코드입니다."),
+
+	// Company (회사)
+	COMPANY_NOT_FOUND(404, "C101", "회사 정보를 찾을 수 없습니다."),
+	COMPANY_ALREADY_EXISTS(409, "C102", "이미 등록된 회사입니다."),
+	INVALID_COMPANY_CODE(400, "C103", "유효하지 않은 회사 코드입니다.");
 
 
 	private final String code;
