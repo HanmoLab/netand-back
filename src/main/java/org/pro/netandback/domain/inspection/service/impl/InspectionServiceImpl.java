@@ -1,10 +1,13 @@
 package org.pro.netandback.domain.inspection.service.impl;
 
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 
 import org.pro.netandback.domain.company.model.entity.Company;
 import org.pro.netandback.domain.company.validate.CompanyValidate;
 import org.pro.netandback.domain.inspection.dto.request.InspectionRequest;
+import org.pro.netandback.domain.inspection.dto.response.InspectionListResponse;
 import org.pro.netandback.domain.inspection.dto.response.InspectionResponse;
 import org.pro.netandback.domain.inspection.model.entity.Inspection;
 import org.pro.netandback.domain.inspection.model.mapper.InspectionMapper;
@@ -14,6 +17,7 @@ import org.pro.netandback.domain.inspection.validate.InspectionValidate;
 import org.pro.netandback.domain.product.model.entity.Product;
 import org.pro.netandback.domain.product.validate.ProductValidate;
 import org.pro.netandback.domain.user.model.entity.User;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,5 +61,11 @@ public class InspectionServiceImpl implements InspectionService {
 	public void deleteInspection(Long inspectionId, User currentUser) {
 		Inspection inspection=inspectionValidate.validateInspection(inspectionId);
 		inspectionRepository.delete(inspection);
+	}
+
+	@Transactional(readOnly = true)
+	public List<InspectionListResponse> listInspections() {
+		List<Inspection> list = inspectionRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+		return inspectionMapper.toInspectionList(list);
 	}
 }
