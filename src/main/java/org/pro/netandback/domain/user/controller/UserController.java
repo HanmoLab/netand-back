@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	private final UserService userService;
 
-	@Operation(summary = "내 정보 조회", tags = {"사용자"})
+	@Operation(summary = "내 정보 조회",tags = {"사용자"})
 	@GetMapping("/me")
 	public ResponseEntity<ResponseDto<UserResponse>> getMyProfile(@CurrentUser User currentUser) {
 		UserResponse profile = userService.getCurrentUserProfile(currentUser);
