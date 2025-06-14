@@ -35,7 +35,7 @@ public class InspectionServiceImpl implements InspectionService {
 	@Transactional
 	public InspectionResponse registerInspection(InspectionRequest request, User currentUser) {
 		Company company = companyValidate.validateCompany(request.getCompanyName());
-		Product product = productValidate.validateProduct(request.getProductName());
+		Product product = productValidate.validateProductByName(request.getProductName());
 		Inspection inspection = Inspection.of(request, company, product, currentUser);
 		Inspection saved = inspectionRepository.save(inspection);
 		return inspectionMapper.toResponse(saved);
@@ -45,7 +45,7 @@ public class InspectionServiceImpl implements InspectionService {
 	public InspectionResponse updateInspection(Long inspectionId, InspectionRequest request, User currentUser) {
 		Inspection inspection = inspectionValidate.validateInspection(inspectionId);
 		Company company = companyValidate.validateCompany(request.getCompanyName());
-		Product product = productValidate.validateProduct(request.getProductName());
+		Product product = productValidate.validateProductByName(request.getProductName());
 		inspection.updateFromRequest(request, company, product, currentUser);
 		Inspection saved = inspectionRepository.save(inspection);
 		return inspectionMapper.toResponse(saved);
