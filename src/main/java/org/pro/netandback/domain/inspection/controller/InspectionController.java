@@ -1,10 +1,13 @@
 package org.pro.netandback.domain.inspection.controller;
 
+import java.util.List;
+
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 
 import org.pro.netandback.common.dto.ResponseDto;
 import org.pro.netandback.domain.inspection.dto.request.InspectionRequest;
+import org.pro.netandback.domain.inspection.dto.response.InspectionListResponse;
 import org.pro.netandback.domain.inspection.dto.response.InspectionResponse;
 import org.pro.netandback.domain.inspection.service.InspectionService;
 import org.pro.netandback.domain.user.model.entity.User;
@@ -46,5 +49,12 @@ public class InspectionController {
 	public ResponseEntity<ResponseDto<Void>> deleteInspection(@PathVariable Long inspectionId, @CurrentUser User currentUser) {
 		inspectionService.deleteInspection(inspectionId, currentUser);
 		return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "정기점검 삭제 성공", null));
+	}
+
+	@Operation(summary = "정기점검 목록 조회", tags = "정기점검")
+	@GetMapping
+	public ResponseEntity<ResponseDto<List<InspectionListResponse>>> listInspections(@CurrentUser User currentUser) {
+		List<InspectionListResponse> list = inspectionService.listInspections();
+		return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "정기점검 목록 조회 성공", list));
 	}
 }
