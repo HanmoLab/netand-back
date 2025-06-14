@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 public class ProductValidate {
     private final ProductRepository productRepository;
 
-    public Product validateProductExists(Long productId) {
-        return productRepository.findById(productId)
+    public Product validateProductExists(String productCode) {
+        return productRepository.findById(productCode)
                 .orElseThrow(ProductNotFoundException::new);
     }
 }
