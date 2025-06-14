@@ -29,7 +29,7 @@ public class IssueServiceImpl implements IssueService {
 
     public IssueCreateResponse createIssue(User reporter, IssueCreateRequest issueCreateRequest) {
         Company company = companyValidate.validateCompanyExists(issueCreateRequest.getCompanyId());
-        Product product = productValidate.validateProductExists(issueCreateRequest.getProductId());
+        Product product = productValidate.validateProductExists(issueCreateRequest.getProductCode());
         User assignee = userValidate.validateUserExists(issueCreateRequest.getAssigneeId());
 
         Issue issue = issueMapper.toIssue(issueCreateRequest, company, product, reporter, assignee);
