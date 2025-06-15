@@ -48,7 +48,11 @@ public enum ErrorCode {
 	// Company (회사)
 	COMPANY_NOT_FOUND(404, "C101", "회사 정보를 찾을 수 없습니다."),
 	COMPANY_ALREADY_EXISTS(409, "C102", "이미 등록된 회사입니다."),
-	INVALID_COMPANY_CODE(400, "C103", "유효하지 않은 회사 코드입니다.");
+	INVALID_COMPANY_CODE(400, "C103", "유효하지 않은 회사 코드입니다."),
+
+	// Notification (알림)
+	NOTIFICATION_NOT_FOUND(404, "NT001", "요청하신 알림을 찾을 수 없습니다."),
+	NOTIFICATION_ACCESS_DENIED(403, "NT002", "해당 알림에 대한 접근이 거부되었습니다.");
 
 
 	private final String code;
