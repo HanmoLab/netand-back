@@ -21,13 +21,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private final JwtProvider jwtProvider;
 	private final JwtSkipPathMatcher skipPathMatcher;
 	private final JwtTokenValidate tokenValidate;
-	private final JwtAuthenticationEntryPoint entryPoint;    // ← 주입
+	private final JwtAuthenticationEntryPoint entryPoint;
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request,
-		HttpServletResponse response,
-		FilterChain filterChain)
-		throws ServletException, IOException {
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		try {
 			if (skipPathMatcher.shouldSkip(request)) {
 				filterChain.doFilter(request, response);
