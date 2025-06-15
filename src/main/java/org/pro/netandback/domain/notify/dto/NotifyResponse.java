@@ -3,7 +3,7 @@ package org.pro.netandback.domain.notify.dto;
 import lombok.*;
 import java.time.LocalDateTime;
 
-import org.pro.netandback.domain.notify.domain.type.NotificationType;
+import org.pro.netandback.domain.notify.model.type.NotificationType;
 
 @Getter
 @AllArgsConstructor
