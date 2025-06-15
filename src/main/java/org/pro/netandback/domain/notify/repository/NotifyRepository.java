@@ -1,3 +1,5 @@
+// package: org.pro.netandback.domain.notify.repository
+
 package org.pro.netandback.domain.notify.repository;
 
 import java.time.LocalDateTime;
@@ -10,8 +12,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NotifyRepository extends JpaRepository<Notify, Long> {
+
 	List<Notify> findAllByReceiverOrderByCreatedAtDesc(User receiver);
-	List<Notify> findAllByReceiverAndIsReadFalseOrderByCreatedAtDesc(User receiver);
 
 	long deleteByIsReadTrueAndReadAtBefore(LocalDateTime threshold);
+
+	void deleteByIdAndReceiverId(Long id, Long receiverId);
 }

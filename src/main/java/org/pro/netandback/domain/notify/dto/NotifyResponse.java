@@ -8,7 +8,7 @@ import org.pro.netandback.domain.notify.domain.type.NotificationType;
 @Getter
 @AllArgsConstructor
 public class NotifyResponse{
-	private Long id;
+	private Long notificationId;
 	private String content;
 	private NotificationType notificationType;
 	private Long targetId;
