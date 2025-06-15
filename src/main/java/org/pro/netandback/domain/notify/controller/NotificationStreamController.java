@@ -18,7 +18,7 @@ public class NotificationStreamController {
 
 	private final SseEmitterRepository emitterRepo;
 
-	@Operation(summary = "알림" ,tags = "알림")
+	@Operation(summary = "알림 Stream" ,tags = "알림 Stream")
 	@GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public SseEmitter subscribe(@CurrentUser User user) {
 		SseEmitter emitter = new SseEmitter(60L * 60 * 1000);
