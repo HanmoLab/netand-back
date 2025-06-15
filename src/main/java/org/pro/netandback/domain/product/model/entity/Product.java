@@ -19,7 +19,7 @@ public class Product extends BaseTime {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "code", length = 20, nullable = false, updatable = false)
+	@Column(name = "code", length = 36, nullable = false, updatable = false)
 	private String code;
 
 	@Column(name = "name", length = 100, nullable = false)
