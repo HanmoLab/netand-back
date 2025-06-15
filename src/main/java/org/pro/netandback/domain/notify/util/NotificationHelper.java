@@ -1,7 +1,7 @@
 package org.pro.netandback.domain.notify.util;
 
 import lombok.RequiredArgsConstructor;
-import org.pro.netandback.domain.notify.domain.type.NotificationType;
+import org.pro.netandback.domain.notify.model.type.NotificationType;
 import org.pro.netandback.domain.notify.service.NotificationService;
 import org.pro.netandback.domain.user.model.entity.User;
 import org.springframework.stereotype.Component;
