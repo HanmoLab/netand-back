@@ -1,4 +1,4 @@
-package org.pro.netandback.domain.notify.sse;
+package org.pro.netandback.domain.notify.emitter;
 
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
