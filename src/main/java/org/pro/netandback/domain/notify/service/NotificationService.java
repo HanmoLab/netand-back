@@ -1,12 +1,17 @@
 package org.pro.netandback.domain.notify.service;
 
-import org.pro.netandback.domain.notify.domain.type.NotificationType;
-import org.pro.netandback.domain.notify.dto.NotifyResponse;
-import org.pro.netandback.domain.user.model.entity.User;
 import java.util.List;
+import org.pro.netandback.domain.notify.dto.NotifyResponse;
+import org.pro.netandback.domain.notify.domain.type.NotificationType;
+import org.pro.netandback.domain.user.model.entity.User;
 
 public interface NotificationService {
-	void notificSend(User receiver, NotificationType type, String content, Long targetId);
-	void notificRead(Long notificationId);
-	List<NotifyResponse> notificList(User receiver);
+
+	void sendNotification(User receiver, NotificationType type, String content, Long targetId);
+
+	void readNotification(Long notificationId, User user);
+
+	List<NotifyResponse> listNotifications(User user);
+
+	void deleteNotification(Long notificationId, User user);
 }

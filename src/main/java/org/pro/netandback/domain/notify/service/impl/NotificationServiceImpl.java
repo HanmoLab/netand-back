@@ -1,20 +1,21 @@
+// package: org.pro.netandback.domain.notify.service.impl
+
 package org.pro.netandback.domain.notify.service.impl;
 
 import lombok.RequiredArgsConstructor;
-
 import org.pro.netandback.domain.notify.domain.entity.Notify;
 import org.pro.netandback.domain.notify.domain.mapper.NotifyMapper;
 import org.pro.netandback.domain.notify.domain.type.NotificationType;
 import org.pro.netandback.domain.notify.dto.NotifyResponse;
 import org.pro.netandback.domain.notify.repository.NotifyRepository;
-import org.pro.netandback.domain.notify.service.NotificationService;
 import org.pro.netandback.domain.notify.sse.SseEmitterRepository;
 import org.pro.netandback.domain.notify.validate.NotifyValidate;
+import org.pro.netandback.domain.notify.service.NotificationService;
 import org.pro.netandback.domain.user.model.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,28 +29,34 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Override
 	@Transactional
-	public void notificSend(User receiver, NotificationType type, String content, Long targetId) {
+	public void sendNotification(User receiver, NotificationType type, String content, Long targetId) {
 		Notify notify = Notify.builder()
 			.receiver(receiver)
 			.notificationType(type)
 			.content(content)
 			.targetId(targetId)
 			.build();
-		Notify saved = notifyRepository.save(notify);
 
-		emitterRepo.push(receiver.getId(), notifyMapper.toDto(saved));
+		Notify saved = notifyRepository.save(notify);
+		emitterRepo.push(receiver.getId(), notifyMapper.toNotifyDto(saved));
 	}
 
 	@Override
 	@Transactional
-	public void notificRead(Long notificationId) {
-		Notify notify = notifyValidate.validateExists(notificationId);
+	public void readNotification(Long notificationId, User user) {
+		Notify notify = notifyValidate.validateReceiver(notificationId, user);
 		notify.markAsRead();
 	}
 
 	@Override
-	public List<NotifyResponse> notificList(User receiver) {
-		return notifyRepository.findAllByReceiverOrderByCreatedAtDesc(receiver)
-			.stream().map(notifyMapper::toDto).collect(Collectors.toList());
+	public List<NotifyResponse> listNotifications(User user) {
+		return notifyMapper.toNotifyDtoList(notifyRepository.findAllByReceiverOrderByCreatedAtDesc(user));
+	}
+
+	@Override
+	@Transactional
+	public void deleteNotification(Long notificationId, User user) {
+		notifyValidate.validateReceiver(notificationId, user);
+		notifyRepository.deleteByIdAndReceiverId(notificationId, user.getId());
 	}
 }

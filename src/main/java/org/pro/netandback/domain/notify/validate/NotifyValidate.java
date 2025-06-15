@@ -1,7 +1,12 @@
+// --- src/main/java/org/pro/netandback/domain/notify/validate/NotifyValidate.java ---
 package org.pro.netandback.domain.notify.validate;
 
+import org.pro.netandback.core.error.ErrorCode;
 import org.pro.netandback.domain.notify.domain.entity.Notify;
+import org.pro.netandback.domain.notify.exception.NotificationAccessDeniedException;
+import org.pro.netandback.domain.notify.exception.NotificationNotFoundException;
 import org.pro.netandback.domain.notify.repository.NotifyRepository;
+import org.pro.netandback.domain.user.model.entity.User;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
@@ -13,6 +18,14 @@ public class NotifyValidate {
 
 	public Notify validateExists(Long id) {
 		return notifyRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 알림입니다. (id=" + id + ")"));
+			.orElseThrow(() -> new NotificationNotFoundException(ErrorCode.NOTIFICATION_NOT_FOUND));
+	}
+
+	public Notify validateReceiver(Long notificationId, User user) {
+		Notify notify = validateExists(notificationId);
+		if (!notify.getReceiver().getId().equals(user.getId())) {
+			throw new NotificationAccessDeniedException(ErrorCode.NOTIFICATION_ACCESS_DENIED);
+		}
+		return notify;
 	}
 }
