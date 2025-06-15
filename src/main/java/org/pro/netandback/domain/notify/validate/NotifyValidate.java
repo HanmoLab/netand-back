@@ -2,7 +2,7 @@
 package org.pro.netandback.domain.notify.validate;
 
 import org.pro.netandback.core.error.ErrorCode;
-import org.pro.netandback.domain.notify.domain.entity.Notify;
+import org.pro.netandback.domain.notify.model.entity.Notify;
 import org.pro.netandback.domain.notify.exception.NotificationAccessDeniedException;
 import org.pro.netandback.domain.notify.exception.NotificationNotFoundException;
 import org.pro.netandback.domain.notify.repository.NotifyRepository;

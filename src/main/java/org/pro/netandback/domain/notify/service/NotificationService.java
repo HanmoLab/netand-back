@@ -2,7 +2,7 @@ package org.pro.netandback.domain.notify.service;
 
 import java.util.List;
 import org.pro.netandback.domain.notify.dto.NotifyResponse;
-import org.pro.netandback.domain.notify.domain.type.NotificationType;
+import org.pro.netandback.domain.notify.model.type.NotificationType;
 import org.pro.netandback.domain.user.model.entity.User;
 
 public interface NotificationService {

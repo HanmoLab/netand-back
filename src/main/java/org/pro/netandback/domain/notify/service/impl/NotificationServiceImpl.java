@@ -3,12 +3,12 @@
 package org.pro.netandback.domain.notify.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.pro.netandback.domain.notify.domain.entity.Notify;
-import org.pro.netandback.domain.notify.domain.mapper.NotifyMapper;
-import org.pro.netandback.domain.notify.domain.type.NotificationType;
+import org.pro.netandback.domain.notify.model.entity.Notify;
+import org.pro.netandback.domain.notify.model.mapper.NotifyMapper;
+import org.pro.netandback.domain.notify.model.type.NotificationType;
 import org.pro.netandback.domain.notify.dto.NotifyResponse;
 import org.pro.netandback.domain.notify.repository.NotifyRepository;
-import org.pro.netandback.domain.notify.sse.SseEmitterRepository;
+import org.pro.netandback.domain.notify.emitter.NotificationEmitterRegistry;
 import org.pro.netandback.domain.notify.validate.NotifyValidate;
 import org.pro.netandback.domain.notify.service.NotificationService;
 import org.pro.netandback.domain.user.model.entity.User;
@@ -25,7 +25,7 @@ public class NotificationServiceImpl implements NotificationService {
 	private final NotifyRepository notifyRepository;
 	private final NotifyValidate notifyValidate;
 	private final NotifyMapper notifyMapper;
-	private final SseEmitterRepository emitterRepo;
+	private final NotificationEmitterRegistry emitterRepo;
 
 	@Override
 	@Transactional

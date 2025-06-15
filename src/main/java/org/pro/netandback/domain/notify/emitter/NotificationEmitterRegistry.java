@@ -1,4 +1,4 @@
-package org.pro.netandback.domain.notify.sse;
+package org.pro.netandback.domain.notify.emitter;
 
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Component
-public class SseEmitterRepository {
+public class NotificationEmitterRegistry {
 	private final Map<Long, SseEmitter> emitters = new ConcurrentHashMap<>();
 
 	public SseEmitter save(Long userId, SseEmitter emitter) {

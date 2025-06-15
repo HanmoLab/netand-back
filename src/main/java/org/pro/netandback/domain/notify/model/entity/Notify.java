@@ -1,11 +1,11 @@
-package org.pro.netandback.domain.notify.domain.entity;
+package org.pro.netandback.domain.notify.model.entity;
 
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.pro.netandback.common.entity.BaseTime;
-import org.pro.netandback.domain.notify.domain.type.NotificationType;
+import org.pro.netandback.domain.notify.model.type.NotificationType;
 import org.pro.netandback.domain.user.model.entity.User;
 
 
