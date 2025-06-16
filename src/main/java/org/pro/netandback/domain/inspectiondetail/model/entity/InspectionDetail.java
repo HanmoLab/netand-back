@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.pro.netandback.common.entity.BaseTime;
 import org.pro.netandback.domain.inspection.model.entity.Inspection;
+import org.pro.netandback.domain.inspectiondetail.dto.request.InspectionDetailRequest;
 
 @Entity
 @Table(name = "inspection_details")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class InspectionDetail extends BaseTime {
 
 	@Id
@@ -36,4 +36,19 @@ public class InspectionDetail extends BaseTime {
 
 	@Column(name = "check_result", length = 200, nullable = false)
 	private String checkResult;
+
+	public static InspectionDetail from(InspectionDetailRequest dto, Inspection inspection) {
+		InspectionDetail d = new InspectionDetail();
+		d.inspection    = inspection;
+		d.itemName      = dto.getItemName();
+		d.systemCheck   = dto.getSystemCheck();
+		d.measuredValue = dto.getMeasuredValue();
+		d.checkMethod   = dto.getCheckMethod();
+		d.checkResult   = dto.getCheckResult();
+		return d;
+	}
+
+	public void setInspection(Inspection inspection) {
+		this.inspection = inspection;
+	}
 }

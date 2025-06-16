@@ -1,7 +1,9 @@
 package org.pro.netandback.domain.product.validate;
 
 import lombok.RequiredArgsConstructor;
+import org.pro.netandback.core.error.ErrorCode;
 import org.pro.netandback.core.error.exception.ProductNotFoundException;
+import org.pro.netandback.domain.product.exception.ProductAlreadyExistsException;
 import org.pro.netandback.domain.product.model.entity.Product;
 import org.pro.netandback.domain.product.repository.ProductRepository;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,27 @@ public class ProductValidate {
 
     public Product validateProductExists(String productCode) {
         return productRepository.findById(productCode)
-                .orElseThrow(ProductNotFoundException::new);
+                .orElseThrow(() -> new ProductNotFoundException(ErrorCode.PRODUCT_NOT_FOUND));
+    }
+
+    public void validateNewCode(String code) {
+        if (productRepository.existsByCode(code)) {
+            throw new ProductAlreadyExistsException(ErrorCode.PRODUCT_ALREADY_EXISTS);
+        }
+    }
+
+    public Product validateProductById(Long id) {
+        return productRepository.findById(String.valueOf(id))
+                .orElseThrow(() -> new ProductNotFoundException(ErrorCode.PRODUCT_NOT_FOUND));
+    }
+
+    public Product validateProductByCode(String code) {
+        return productRepository.findByCode(code)
+                .orElseThrow(() -> new ProductNotFoundException(ErrorCode.PRODUCT_NOT_FOUND));
+    }
+
+    public Product validateProductByName(String name) {
+        return productRepository.findByName(name)
+                .orElseThrow(() -> new ProductNotFoundException(ErrorCode.PRODUCT_NOT_FOUND));
     }
 }
