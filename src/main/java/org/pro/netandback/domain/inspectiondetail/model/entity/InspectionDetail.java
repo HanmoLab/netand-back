@@ -28,9 +28,6 @@ public class InspectionDetail extends BaseTime {
 	@Column(name = "system_check", length = 100)
 	private String systemCheck;
 
-	@Column(name = "measured_value", length = 100)
-	private String measuredValue;
-
 	@Column(name = "check_method", length = 100, nullable = false)
 	private String checkMethod;
 
@@ -42,7 +39,6 @@ public class InspectionDetail extends BaseTime {
 		d.inspection    = inspection;
 		d.itemName      = dto.getItemName();
 		d.systemCheck   = dto.getSystemCheck();
-		d.measuredValue = dto.getMeasuredValue();
 		d.checkMethod   = dto.getCheckMethod();
 		d.checkResult   = dto.getCheckResult();
 		return d;

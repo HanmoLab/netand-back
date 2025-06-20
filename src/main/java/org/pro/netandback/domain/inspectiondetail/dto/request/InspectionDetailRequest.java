@@ -7,7 +7,6 @@ import lombok.Data;
 public class InspectionDetailRequest {
 	private String itemName;
 	private String systemCheck;
-	private String measuredValue;
 	private String checkMethod;
 	private String checkResult;
 }
