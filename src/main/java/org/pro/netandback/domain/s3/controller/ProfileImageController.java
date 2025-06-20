@@ -33,10 +33,7 @@ public class ProfileImageController {
 	@Operation(summary = "프로필 이미지 확인", tags = "프로필 이미지")
 	@GetMapping("/me/profile-image")
 	public ResponseEntity<ResponseDto<String>> getProfileImageUrl(@CurrentUser User currentUser) {
-		{
-			return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "프로필 이미지 조회 성공",
-				profileImageService.getProfileImageUrl(currentUser.getId())));
-		}
+		return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "프로필 이미지 조회 성공", profileImageService.getProfileImageUrl(currentUser.getId())));
 	}
 
 	@Operation(summary = "프로필 이미지 삭제", tags = "프로필 이미지")
