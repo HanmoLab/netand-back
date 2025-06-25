@@ -1,6 +1,5 @@
 package org.pro.netandback.domain.inspectiondetail.dto.request;
 
-
 import lombok.Data;
 
 @Data
