@@ -31,7 +31,7 @@ public class Inspection extends BaseTime {
 	private Company company;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_code", referencedColumnName = "code", nullable = false)
+	@JoinColumn(name = "product_id", nullable = false)
 	private Product product;
 
 	// 점검 일자
