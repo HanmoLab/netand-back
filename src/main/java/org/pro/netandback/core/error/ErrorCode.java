@@ -38,6 +38,7 @@ public enum ErrorCode {
 
 	// Issue
 	ISSUE_NOT_FOUND(404, "IS001", "이슈를 찾을 수 없습니다."),
+	ISSUE_ACCESS_DENIED(403, "IS002", "해당 이슈에 대한 접근 권한이 없습니다."),
 
 	// Inspection (정기점검)
 	INSPECTION_NOT_FOUND(404, "I001", "정기점검 정보를 찾을 수 없습니다."),
