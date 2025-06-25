@@ -31,7 +31,7 @@ class UserServiceTest {
 	@Mock
 	private UserValidate userValidate;
 	@Mock
-	private RefreshTokenDao refreshTokenDao;          // 추가
+	private RefreshTokenDao refreshTokenDao;
 	@Mock
 	private BlacklistService blacklistService;
 	@InjectMocks
