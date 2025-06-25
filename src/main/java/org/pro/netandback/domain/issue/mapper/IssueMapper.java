@@ -7,9 +7,13 @@ import org.pro.netandback.domain.company.model.entity.Company;
 import org.pro.netandback.domain.issue.dto.request.IssueCreateRequest;
 import org.pro.netandback.domain.issue.dto.response.IssueCreateResponse;
 import org.pro.netandback.domain.issue.dto.response.IssueDetailResponse;
+import org.pro.netandback.domain.issue.dto.response.IssueListResponse;
 import org.pro.netandback.domain.issue.model.entity.Issue;
 import org.pro.netandback.domain.product.model.entity.Product;
 import org.pro.netandback.domain.user.model.entity.User;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = false))
 public interface IssueMapper {
@@ -30,4 +34,11 @@ public interface IssueMapper {
     @Mapping(target = "productName", source = "product.name")
     @Mapping(target = "dueDate", expression = "java(issue.getDueDate() != null ? issue.getDueDate().toString() : null)")
     IssueDetailResponse toIssueDetailResponse(Issue issue);
+
+    IssueListResponse toIssueListResponse(Issue issue);
+
+    default Page<IssueListResponse> toIssuePageResponse(Page<Issue> issues) {
+        return issues.map(this::toIssueListResponse);
+    }
+
 }

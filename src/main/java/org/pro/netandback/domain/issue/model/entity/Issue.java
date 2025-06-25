@@ -35,9 +35,14 @@ public class Issue extends BaseTime {
 	@JoinColumn(name = "assignee_id")
 	private User assignee;
 
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "product_code", referencedColumnName = "code", nullable = false)
+//	private Product product;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_code", referencedColumnName = "code", nullable = false)
+	@JoinColumn(name = "product_id", nullable = false)
 	private Product product;
+
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "issue_type", nullable = false)
@@ -62,5 +67,14 @@ public class Issue extends BaseTime {
 
 	@Column(name = "progress", nullable = false)
 	private int progress;
+
+	public void update(String title, String description, IssueStatus status, Priority priority, IssueType issueType, LocalDate dueDate) {
+		this.title = title;
+		this.description = description;
+		this.status = status;
+		this.priority = priority;
+		this.issueType = issueType;
+		this.dueDate = dueDate;
+	}
 }
 

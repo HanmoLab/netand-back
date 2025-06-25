@@ -13,11 +13,6 @@ import org.springframework.stereotype.Component;
 public class ProductValidate {
     private final ProductRepository productRepository;
 
-    public Product validateProductExists(String productCode) {
-        return productRepository.findById(productCode)
-                .orElseThrow(() -> new ProductNotFoundException(ErrorCode.PRODUCT_NOT_FOUND));
-    }
-
     public void validateNewCode(String code) {
         if (productRepository.existsByCode(code)) {
             throw new ProductAlreadyExistsException(ErrorCode.PRODUCT_ALREADY_EXISTS);
@@ -25,7 +20,7 @@ public class ProductValidate {
     }
 
     public Product validateProductById(Long id) {
-        return productRepository.findById(String.valueOf(id))
+        return productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(ErrorCode.PRODUCT_NOT_FOUND));
     }
 
