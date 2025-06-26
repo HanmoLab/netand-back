@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class IssueValidate {
     private final IssueRepository issueRepository;
 
-    public Issue validateIssueExists(Long issueId) {
+    public Issue getIssueByIdOrThrow(Long issueId) {
         return issueRepository.findById(issueId)
                 .orElseThrow(IssueNotFoundException::new);
     }
