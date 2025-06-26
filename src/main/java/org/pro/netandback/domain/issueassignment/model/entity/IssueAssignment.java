@@ -31,5 +31,10 @@ public class IssueAssignment extends BaseTime {
 //	@Enumerated(EnumType.STRING)
 //	@Column(name = "priority", nullable = false)
 //	private Priority priority;
+
+	public void updateAssignee(User newAssignee) {
+		this.assignee = newAssignee;
+	}
+
 }
 
