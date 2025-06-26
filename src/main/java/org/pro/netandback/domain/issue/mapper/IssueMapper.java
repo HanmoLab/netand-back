@@ -13,7 +13,6 @@ import org.pro.netandback.domain.product.model.entity.Product;
 import org.pro.netandback.domain.user.model.entity.User;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
 
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = false))
 public interface IssueMapper {
@@ -21,8 +20,7 @@ public interface IssueMapper {
     @Mapping(target = "company", source = "company")
     @Mapping(target = "product", source = "product")
     @Mapping(target = "reporter", source = "reporter")
-    @Mapping(target = "assignee", source = "assignee")
-    Issue toIssue(IssueCreateRequest issueCreateRequest, Company company, Product product, User reporter, User assignee);
+    Issue toIssue(IssueCreateRequest issueCreateRequest, Company company, Product product, User reporter);
 
     @Mapping(target = "id", source = "id")
     IssueCreateResponse toIssueCreateResponse(Issue issue);

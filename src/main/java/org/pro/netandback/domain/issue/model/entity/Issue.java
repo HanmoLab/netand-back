@@ -35,14 +35,9 @@ public class Issue extends BaseTime {
 	@JoinColumn(name = "assignee_id")
 	private User assignee;
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "product_code", referencedColumnName = "code", nullable = false)
-//	private Product product;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id", nullable = false)
 	private Product product;
-
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "issue_type", nullable = false)
@@ -75,6 +70,10 @@ public class Issue extends BaseTime {
 		this.priority = priority;
 		this.issueType = issueType;
 		this.dueDate = dueDate;
+	}
+
+	public void assignTo(User assignee) {
+		this.assignee = assignee;
 	}
 }
 

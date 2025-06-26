@@ -36,10 +36,9 @@ public class IssueServiceImpl implements IssueService {
 
     @Transactional
     public IssueCreateResponse createIssue(User currentUser, IssueCreateRequest request) {
-        Company company = companyValidate.validateCompanyExists(request.getCompanyId());
+        Company company = companyValidate.getCompanyByIdOrThrow(request.getCompanyId());
         Product product = productValidate.validateProductByCode(request.getProductCode());
-        User assignee = userValidate.validateUserExists(request.getAssigneeId());
-        Issue issue = issueMapper.toIssue(request, company, product, currentUser, assignee);
+        Issue issue = issueMapper.toIssue(request, company, product, currentUser);
         Issue savedIssue = issueRepository.save(issue);
         return issueMapper.toIssueCreateResponse(savedIssue);
     }
@@ -51,14 +50,14 @@ public class IssueServiceImpl implements IssueService {
     }
 
     public IssueDetailResponse getIssueDetail(User currentUser, Long issueId) {
-        Issue issue = issueValidate.validateIssueExists(issueId);
+        Issue issue = issueValidate.getIssueByIdOrThrow(issueId);
         issueValidate.validateIssueOwner(currentUser, issue);
         return issueMapper.toIssueDetailResponse(issue);
     }
 
     @Transactional
     public IssueDetailResponse updateIssue(User currentUser, Long issueId, IssueUpdateRequest request) {
-        Issue issue = issueValidate.validateIssueExists(issueId);
+        Issue issue = issueValidate.getIssueByIdOrThrow(issueId);
         issueValidate.validateIssueOwner(currentUser, issue);
         issue.update(request.getTitle(), request.getDescription(), request.getStatus(), request.getPriority(), request.getIssueType(), request.getDueDate());
         Issue savedIssue = issueRepository.save(issue);
@@ -68,7 +67,7 @@ public class IssueServiceImpl implements IssueService {
 
     @Transactional
     public void deleteIssue(User currentUser, Long issueId) {
-        Issue issue = issueValidate.validateIssueExists(issueId);
+        Issue issue = issueValidate.getIssueByIdOrThrow(issueId);
         issueValidate.validateIssueOwner(currentUser, issue);
         issueRepository.delete(issue);
     }

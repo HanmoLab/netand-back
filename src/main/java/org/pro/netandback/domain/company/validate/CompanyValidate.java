@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 public class CompanyValidate {
 	private final CompanyRepository companyRepository;
 
-    public Company validateCompanyExists(Long companyId) {
+    public Company getCompanyByIdOrThrow(Long companyId) {
         return companyRepository.findById(companyId)
                 .orElseThrow(() -> new CompanyNotFoundException(ErrorCode.COMPANY_NOT_FOUND));
     }
