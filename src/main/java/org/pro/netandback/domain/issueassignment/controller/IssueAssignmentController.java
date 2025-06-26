@@ -14,27 +14,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-@ApiController("/api/v1/issues/assignments")
+@ApiController("/api/v1/issues/{issueId}/assignee")
 @RequiredArgsConstructor
 public class IssueAssignmentController {
     private final IssueAssignmentService issueAssignmentService;
 
     @Operation(summary = "이슈 담당자 배정", tags = {"이슈 담당자"})
-    @PostMapping("/{issueId}")
+    @PostMapping
     public ResponseEntity<ResponseDto<IssueAssignmentResponse>> assignAssignee(@CurrentUser User currentUser, @PathVariable Long issueId, @RequestBody IssueAssignmentRequest request){
         IssueAssignmentResponse response = issueAssignmentService.assignAssignee(issueId, request.getAssigneeId(), currentUser);
         return ResponseEntity.ok(ResponseDto.of(HttpStatus.CREATED, "담당자 배정 성공", response));
     }
 
     @Operation(summary = "이슈 담당자 수정", tags = {"이슈 담당자"})
-    @PutMapping("/{issueId}")
+    @PutMapping
     public ResponseEntity<ResponseDto<IssueAssignmentResponse>> updateAssignee(@CurrentUser User currentUser, @PathVariable Long issueId, @RequestBody IssueAssignmentRequest request) {
         IssueAssignmentResponse response = issueAssignmentService.updateAssignee(issueId, request.getAssigneeId(), currentUser);
         return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "담당자 수정 성공", response));
     }
 
     @Operation(summary = "이슈 담당자 삭제", tags = {"이슈 담당자"})
-    @DeleteMapping("/{issueId}")
+    @DeleteMapping
     public ResponseEntity<ResponseDto<Void>> deleteAssignee(@CurrentUser User currentUser, @PathVariable Long issueId) {
         issueAssignmentService.deleteAssignee(issueId, currentUser);
         return ResponseEntity.ok(ResponseDto.of(HttpStatus.NO_CONTENT, "담당자 삭제 성공", null));
