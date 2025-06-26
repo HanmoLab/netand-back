@@ -43,6 +43,11 @@ public enum ErrorCode {
 	// Issue Assignment
 	ISSUE_ASSIGNMENT_NOT_FOUND(404, "IA001", "이슈에 대한 담당자 정보가 존재하지 않습니다."),
 
+	// Issue Comment
+	ISSUE_COMMENT_NOT_FOUND(404, "IC001", "이슈 댓글을 찾을 수 없습니다."),
+	ISSUE_COMMENT_ACCESS_DENIED(403, "IC002", "해당 이슈 댓글에 대한 접근 권한이 없습니다."),
+	ISSUE_COMMENT_MISMATCH(400, "IC003", "해당 댓글은 이 이슈에 속하지 않습니다."),
+
 	// Inspection (정기점검)
 	INSPECTION_NOT_FOUND(404, "I001", "정기점검 정보를 찾을 수 없습니다."),
 	INSPECTION_ALREADY_EXISTS(409, "I002", "이미 등록된 정기점검입니다."),
