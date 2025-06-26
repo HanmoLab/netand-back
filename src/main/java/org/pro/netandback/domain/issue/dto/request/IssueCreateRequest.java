@@ -22,7 +22,5 @@ public class IssueCreateRequest {
     private String description;
     private LocalDate dueDate;
     private Long companyId;
-    private Long reporterId;
-    private Long assigneeId;
     private String productCode;
 }
