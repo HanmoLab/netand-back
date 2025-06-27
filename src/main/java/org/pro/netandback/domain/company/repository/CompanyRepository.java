@@ -1,4 +1,4 @@
-package org.pro.netandback.domain.company.model.repository;
+package org.pro.netandback.domain.company.repository;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

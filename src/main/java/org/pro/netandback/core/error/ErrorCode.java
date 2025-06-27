@@ -35,6 +35,19 @@ public enum ErrorCode {
 	PROFILE_IMAGE_NOT_FOUND   (404, "P002", "프로필 이미지가 존재하지 않습니다."),
 	PROFILE_IMAGE_DELETE_FAILED(500, "P003", "프로필 이미지 삭제에 실패했습니다."),
 
+
+	// Issue
+	ISSUE_NOT_FOUND(404, "IS001", "이슈를 찾을 수 없습니다."),
+	ISSUE_ACCESS_DENIED(403, "IS002", "해당 이슈에 대한 접근 권한이 없습니다."),
+
+	// Issue Assignment
+	ISSUE_ASSIGNMENT_NOT_FOUND(404, "IA001", "이슈에 대한 담당자 정보가 존재하지 않습니다."),
+
+	// Issue Comment
+	ISSUE_COMMENT_NOT_FOUND(404, "IC001", "이슈 댓글을 찾을 수 없습니다."),
+	ISSUE_COMMENT_ACCESS_DENIED(403, "IC002", "해당 이슈 댓글에 대한 접근 권한이 없습니다."),
+	ISSUE_COMMENT_MISMATCH(400, "IC003", "해당 댓글은 이 이슈에 속하지 않습니다."),
+
 	// Inspection (정기점검)
 	INSPECTION_NOT_FOUND(404, "I001", "정기점검 정보를 찾을 수 없습니다."),
 	INSPECTION_ALREADY_EXISTS(409, "I002", "이미 등록된 정기점검입니다."),
@@ -46,9 +59,9 @@ public enum ErrorCode {
 	INVALID_PRODUCT_CODE(400, "PR003", "유효하지 않은 제품 코드입니다."),
 
 	// Company (회사)
-	COMPANY_NOT_FOUND(404, "C101", "회사 정보를 찾을 수 없습니다."),
-	COMPANY_ALREADY_EXISTS(409, "C102", "이미 등록된 회사입니다."),
-	INVALID_COMPANY_CODE(400, "C103", "유효하지 않은 회사 코드입니다."),
+	COMPANY_NOT_FOUND(404, "CO001", "회사 정보를 찾을 수 없습니다."),
+	COMPANY_ALREADY_EXISTS(409, "CO002", "이미 등록된 회사입니다."),
+	INVALID_COMPANY_CODE(400, "CO003", "유효하지 않은 회사 코드입니다."),
 
 	// Notification (알림)
 	NOTIFICATION_NOT_FOUND(404, "NT001", "요청하신 알림을 찾을 수 없습니다."),

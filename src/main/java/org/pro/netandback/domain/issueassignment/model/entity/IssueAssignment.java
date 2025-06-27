@@ -14,7 +14,6 @@ import org.pro.netandback.domain.user.model.entity.User;
 @AllArgsConstructor
 @Builder
 public class IssueAssignment extends BaseTime {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -29,8 +28,13 @@ public class IssueAssignment extends BaseTime {
 	@JoinColumn(name = "assignee_id", nullable = false)
 	private User assignee;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "priority", nullable = false)
-	private Priority priority;
+//	@Enumerated(EnumType.STRING)
+//	@Column(name = "priority", nullable = false)
+//	private Priority priority;
+
+	public void updateAssignee(User newAssignee) {
+		this.assignee = newAssignee;
+	}
+
 }
 
