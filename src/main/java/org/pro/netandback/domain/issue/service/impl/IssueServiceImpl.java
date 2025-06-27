@@ -36,7 +36,7 @@ public class IssueServiceImpl implements IssueService {
 
     @Transactional
     public IssueCreateResponse createIssue(User currentUser, IssueCreateRequest request) {
-        Company company = companyValidate.getCompanyByIdOrThrow(request.getCompanyId());
+        Company company = companyValidate.validateCompanyById(request.getCompanyId());
         Product product = productValidate.validateProductByCode(request.getProductCode());
         Issue issue = issueMapper.toIssue(request, company, product, currentUser);
         Issue savedIssue = issueRepository.save(issue);
