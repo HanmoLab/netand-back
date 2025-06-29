@@ -51,6 +51,9 @@ public class Issue extends BaseTime {
 	@Column(name = "status", nullable = false)
 	private IssueStatus status;
 
+	@Column(name = "product_code", nullable = false)
+	private String productCode;
+
 	@Column(name = "title", length = 100, nullable = false)
 	private String title;
 
