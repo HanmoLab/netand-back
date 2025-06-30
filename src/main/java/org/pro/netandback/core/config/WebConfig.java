@@ -7,21 +7,21 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**")
-			.allowedOrigins(
-				"http://localhost:3000",
-				"https://localhost:3000",
-				"https://netand.store",
-				"https://www.netand.store",
-				"http://netand.store",
-				"http://www.netand.store"
-				)
-			.allowedMethods("*")
-			.allowedHeaders("*")
-			.allowCredentials(true)
-			.exposedHeaders("Authorization");
-	}
+//	@Override
+//	public void addCorsMappings(CorsRegistry registry) {
+//		registry.addMapping("/**")
+//			.allowedOrigins(
+//				"http://localhost:3000",
+//				"https://localhost:3000",
+//				"https://netand.store",
+//				"https://www.netand.store",
+//				"http://netand.store",
+//				"http://www.netand.store"
+//				)
+//			.allowedMethods("*")
+//			.allowedHeaders("*")
+//			.allowCredentials(true)
+//			.exposedHeaders("Authorization");
+//	}
 
 }
