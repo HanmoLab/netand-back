@@ -32,7 +32,6 @@ public class IssueServiceImpl implements IssueService {
     private final IssueValidate issueValidate;
     private final CompanyValidate companyValidate;
     private final ProductValidate productValidate;
-    private final UserValidate userValidate;
 
     @Transactional
     public IssueCreateResponse createIssue(User currentUser, IssueCreateRequest request) {

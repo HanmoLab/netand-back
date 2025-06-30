@@ -20,6 +20,7 @@ public interface IssueMapper {
     @Mapping(target = "company", source = "company")
     @Mapping(target = "product", source = "product")
     @Mapping(target = "reporter", source = "reporter")
+    @Mapping(target = "productCode", source = "product.code")
     Issue toIssue(IssueCreateRequest issueCreateRequest, Company company, Product product, User reporter);
 
     @Mapping(target = "id", source = "id")
