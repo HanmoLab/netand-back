@@ -34,6 +34,14 @@ public interface IssueMapper {
     @Mapping(target = "dueDate", expression = "java(issue.getDueDate() != null ? issue.getDueDate().toString() : null)")
     IssueDetailResponse toIssueDetailResponse(Issue issue);
 
+    @Mapping(target = "companyName", source = "company.name")
+    @Mapping(target = "productName", source = "product.name")
+    @Mapping(target = "assigneeName", source = "assignee.name")
+    @Mapping(target = "createdAt", source = "createdAt")
+    @Mapping(target = "priority", source = "priority")
+    @Mapping(target = "title", source = "title")
+    @Mapping(target = "status", source = "status")
+    @Mapping(target = "issueType", source = "issueType")
     IssueListResponse toIssueListResponse(Issue issue);
 
     default Page<IssueListResponse> toIssuePageResponse(Page<Issue> issues) {

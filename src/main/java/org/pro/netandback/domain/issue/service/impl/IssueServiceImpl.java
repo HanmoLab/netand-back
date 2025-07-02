@@ -44,7 +44,7 @@ public class IssueServiceImpl implements IssueService {
 
     public Page<IssueListResponse> getIssueList(Pageable pageable) {
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "createdAt"));
-        Page<Issue> issues = issueRepository.findAllWithCompanyAndProduct(sortedPageable);
+        Page<Issue> issues = issueRepository.findAll(sortedPageable);
         return issueMapper.toIssuePageResponse(issues);
     }
 
