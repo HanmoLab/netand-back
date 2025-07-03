@@ -66,7 +66,8 @@ public class SecurityConfig {
 			"http://netand.store",
 			"https://netand.store",
 			"http://www.netand.store",
-			"https://www.netand.store"
+			"https://www.netand.store",
+			"https://hanmo-netand.vercel.app"
 		));
 		config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
 		config.setAllowedHeaders(List.of("*"));
