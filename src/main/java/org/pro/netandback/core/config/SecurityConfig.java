@@ -68,7 +68,7 @@ public class SecurityConfig {
 			"http://www.netand.store",
 			"https://www.netand.store"
 		));
-		config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+		config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
 		config.setAllowedHeaders(List.of("*"));
 		config.setAllowCredentials(true);
 		config.setExposedHeaders(List.of("Authorization"));
