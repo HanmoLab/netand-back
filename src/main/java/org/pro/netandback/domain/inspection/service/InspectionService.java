@@ -15,5 +15,5 @@ public interface InspectionService {
 	InspectionResponse updateInspection(Long inspectionId, InspectionRequest request, User currentUser);
 	void deleteInspection(Long inspectionId, User currentUser);
 
-	PagedResponse<InspectionListResponse> listInspections(Pageable pageable);
+	PagedResponse<InspectionListResponse> listInspections(String companyName, String productName, Pageable pageable);
 }

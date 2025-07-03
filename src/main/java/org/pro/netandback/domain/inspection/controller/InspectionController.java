@@ -57,8 +57,9 @@ public class InspectionController {
 
 	@Operation(summary = "정기점검 목록 조회", tags = "정기점검")
 	@GetMapping("/inspections")
-	public ResponseEntity<ResponseDto<PagedResponse<InspectionListResponse>>> listInspections(@CurrentUser User currentUser, Pageable pageable) {
-		PagedResponse<InspectionListResponse> page = inspectionService.listInspections(pageable);
+	public ResponseEntity<ResponseDto<PagedResponse<InspectionListResponse>>> listInspections(@CurrentUser User currentUser,
+		@RequestParam(required = false) String companyName, @RequestParam(required = false) String productName, Pageable pageable) {
+		PagedResponse<InspectionListResponse> page = inspectionService.listInspections(companyName, productName, pageable);
 		return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "정기점검 목록 조회 성공", page));
 	}
 }
