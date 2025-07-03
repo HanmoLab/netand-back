@@ -26,6 +26,7 @@ public class InspectionRepositoryCustomImpl implements InspectionRepositoryCusto
 	) {
 		QInspection i = QInspection.inspection;
 		BooleanBuilder builder = new BooleanBuilder();
+
 		if (StringUtils.hasText(companyName)) {
 			builder.and(i.company.name.containsIgnoreCase(companyName));
 		}
@@ -42,10 +43,12 @@ public class InspectionRepositoryCustomImpl implements InspectionRepositoryCusto
 			.fetch();
 
 		long total = queryFactory
-			.selectFrom(i)
+			.select(i.count())
+			.from(i)
 			.where(builder)
-			.fetchCount();
+			.fetchOne();
 
 		return new PageImpl<>(content, pageable, total);
 	}
 }
+

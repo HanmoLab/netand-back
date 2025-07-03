@@ -77,4 +77,5 @@ public class InspectionServiceImpl implements InspectionService {
 		Page<InspectionListResponse> dtoPage = page.map(inspectionMapper::toInspectionListItem);
 		return PagedResponse.pagedFrom(dtoPage);
 	}
+
 }
