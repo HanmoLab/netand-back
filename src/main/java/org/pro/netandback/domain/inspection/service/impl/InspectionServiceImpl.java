@@ -70,10 +70,10 @@ public class InspectionServiceImpl implements InspectionService {
 		inspectionRepository.delete(inspection);
 	}
 
+	@Override
 	@Transactional(readOnly = true)
-	public PagedResponse<InspectionListResponse> listInspections(Pageable pageable) {
-		Pageable sorted = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "createdAt"));
-		Page<Inspection> page = inspectionRepository.findAll(sorted);
+	public PagedResponse<InspectionListResponse> listInspections(String companyName, String productName, Pageable pageable) {
+		Page<Inspection> page = inspectionRepository.searchByCompanyAndProduct(companyName, productName, pageable);
 		Page<InspectionListResponse> dtoPage = page.map(inspectionMapper::toInspectionListItem);
 		return PagedResponse.pagedFrom(dtoPage);
 	}
