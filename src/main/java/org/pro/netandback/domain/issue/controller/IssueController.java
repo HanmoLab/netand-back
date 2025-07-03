@@ -33,8 +33,8 @@ public class IssueController {
 
     @Operation(summary = "이슈 목록 조회", tags = {"이슈"})
     @GetMapping
-    public ResponseEntity<ResponseDto<Page<IssueListResponse>>> getIssueList(Pageable pageable) {
-        Page<IssueListResponse> response = issueService.getIssueList(pageable);
+    public ResponseEntity<ResponseDto<Page<IssueListResponse>>> getIssueList(@RequestParam(required = false) String companyName, @RequestParam(required = false) String productName, Pageable pageable) {
+        Page<IssueListResponse> response = issueService.getIssueList(companyName, productName, pageable);
         return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, "이슈 목록 조회 성공", response));
     }
 

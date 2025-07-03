@@ -42,9 +42,9 @@ public class IssueServiceImpl implements IssueService {
         return issueMapper.toIssueCreateResponse(savedIssue);
     }
 
-    public Page<IssueListResponse> getIssueList(Pageable pageable) {
+    public Page<IssueListResponse> getIssueList(String companyName, String productName, Pageable pageable) {
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "createdAt"));
-        Page<Issue> issues = issueRepository.findAll(sortedPageable);
+        Page<Issue> issues = issueRepository.findByCondition(companyName, productName, sortedPageable);
         return issueMapper.toIssuePageResponse(issues);
     }
 

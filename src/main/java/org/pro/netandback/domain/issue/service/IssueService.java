@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface IssueService {
     IssueCreateResponse createIssue(User currentUser, IssueCreateRequest issueCreateRequest);
-    Page<IssueListResponse> getIssueList(Pageable pageable);
+    Page<IssueListResponse> getIssueList(String companyName, String productName, Pageable pageable);
     IssueDetailResponse getIssueDetail(User currentUser, Long issueId);
     IssueDetailResponse updateIssue(User currentUser, Long issueId, IssueUpdateRequest request);
     void deleteIssue(User currentUser, Long issueId);
