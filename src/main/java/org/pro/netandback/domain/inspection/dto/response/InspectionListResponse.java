@@ -14,6 +14,7 @@ public class InspectionListResponse {
 	private String companyName;
 	private String productName;
 	private LocalDate inspectionDate;
+	private LocalDate nextInspectionDate;
 	private InspectionStatus status;
 	private String inspector;
 }

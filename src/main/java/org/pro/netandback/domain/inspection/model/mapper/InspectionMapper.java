@@ -28,6 +28,7 @@ public interface InspectionMapper {
 	@Mapping(target = "companyName",       source = "company.name")
 	@Mapping(target = "productName",       source = "product.name")
 	@Mapping(target = "inspectionDate",    source = "inspectionDate")
+	@Mapping(target = "nextInspectionDate", source = "nextInspectionDate")
 	@Mapping(target = "status",            source = "status")
 	@Mapping(target = "inspector",         source = "inspector.name")
 	InspectionListResponse toInspectionListItem(Inspection inspection);
