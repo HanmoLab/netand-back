@@ -1,5 +1,6 @@
 package org.pro.netandback.common.dto;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ public class ResponseDto<T> {
 	private final int status;
 	private final String message;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.ALWAYS)
 	private final T data;
 	private final long timestamp;
 
@@ -35,6 +36,11 @@ public class ResponseDto<T> {
 		int status = Optional.ofNullable(httpStatus)
 			.orElse(HttpStatus.OK)
 			.value();
+
+		if (data == null) {
+			data = (T) List.of();
+		}
+
 		return new ResponseDto<>(status, message, data);
 	}
 }
