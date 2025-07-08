@@ -33,6 +33,9 @@ public class IssueCommentServiceImpl implements IssueCommentService {
 
     public List<IssueCommentResponse> getCommentsByIssue(Long issueId) {
         List<IssueComment> comments = issueCommentRepository.findByIssueIdOrderByCreatedAtAsc(issueId);
+        if (comments == null || comments.isEmpty()) {
+            return List.of();
+        }
         return issueCommentMapper.toIssueCommentResponseList(comments);
     }
 

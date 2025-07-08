@@ -1,6 +1,7 @@
 package org.pro.netandback.domain.issuecomment.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.pro.netandback.common.annotation.CurrentUser;
 import org.pro.netandback.common.dto.ResponseDto;
@@ -22,7 +23,7 @@ public class IssueCommentController {
 
     @Operation(summary = "댓글 생성", tags = {"이슈 댓글"})
     @PostMapping
-    public ResponseEntity<ResponseDto<IssueCommentResponse>> createComment(@CurrentUser User currentUser, @PathVariable Long issueId, @RequestBody IssueCommentRequest request) {
+    public ResponseEntity<ResponseDto<IssueCommentResponse>> createComment(@CurrentUser User currentUser, @PathVariable Long issueId, @RequestBody @Valid IssueCommentRequest request) {
         IssueCommentResponse response = issueCommentService.createComment(currentUser, issueId, request);
         return ResponseEntity.ok(ResponseDto.of(HttpStatus.CREATED, "댓글 생성 성공", response));
     }
